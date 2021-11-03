@@ -1,10 +1,15 @@
 import React from 'react'
 import Icon from './Icon'
 
-const Header = () => {
+const Header = ({setActive}) => {
     return (
         <header className="page-header">
-            <Icon name="id" image="icons/hamburger.svg"/>
+            <Icon 
+                className="page-header-icon"
+                name="menu" 
+                image="icons/hamburger.svg"
+                onClick={() => setActive(true)}
+            />
             
         </header>
     )
