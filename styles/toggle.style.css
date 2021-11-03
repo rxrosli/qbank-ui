@@ -1,0 +1,27 @@
+.toggle {
+    width: 32px;
+    height: 32px;
+    background: #BF616A;
+    position: relative;
+    border-radius: 5px;
+}
+.toggle-slider {
+    position: absolute;
+    /* top: 50%;
+    transform: translateY(-50%); */
+    margin: 1px;
+    left: 0;
+    width: 9px;
+    height: 30px;
+    background:#FFFFFF;
+    border-radius: 30px;
+    box-shadow: 2px 1px 4px rgba(0, 0, 0, 0.25);
+}
+.toggle.is-active {
+    background: #A3BE8C;
+}
+.toggle.is-active .toggle-slider {
+    left: unset;
+    right: 0;
+    box-shadow: -2px 1px 4px rgba(0, 0, 0, 0.25);
+}
