@@ -10,7 +10,7 @@ const Navigation = ({isActive, setActive}) => {
                     alt="collapse"
                     className="nav-item"  
                     image="icons/chevron_duo_left.svg"
-                    onClick={() => setActive(true)}/>
+                    onClick={() => setActive(!isActive)}/>
                 <Icon className="nav-item" alt="create-question" image="icons/plus.svg"/>
                 <Icon className="nav-item" alt="search-question" image="icons/search.svg"/>
                 

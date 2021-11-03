@@ -13,7 +13,7 @@
     background: #FFFFFF;
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   
-    transform: translateX(4rem); /** assuming width ng side bar */
+    transform: translateX(-4rem); /** assuming width ng side bar */
     transition: transform 0.25s linear;
 }
 .page-nav.is-active{

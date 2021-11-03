@@ -6,6 +6,7 @@ import {useState} from 'react'
 
 export default function Home() {
   const [isActive, setActive] = useState(false);
+  
   return (
     <div>
       <Head>
@@ -14,8 +15,8 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {/* <Header setActive={setActive}/> */}
-      {/* <Navigation isActive={isAcitve} setActive={setActive}/> */}
+      <Header setActive={setActive}/>
+      <Navigation isActive={isActive} setActive={setActive}/>
 
     </div>
   )
