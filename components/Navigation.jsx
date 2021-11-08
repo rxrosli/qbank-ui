@@ -1,25 +1,28 @@
-import React from 'react'
-import Icon from './Icon'
+import React from "react";
+import Icon from "./Icon";
 
-const Navigation = ({isActive, setActive}) => {
-    const navClassName = isActive ? 'page-nav is-active' : 'page-nav';
-    return (
-        <nav className={navClassName}>
-            <div className="nav-top-flex">
-                <Icon 
-                    alt="collapse"
-                    className="nav-item"  
-                    image="icons/chevron_duo_left.svg"
-                    onClick={() => setActive(!isActive)}/>
-                <Icon className="nav-item" alt="create-question" image="icons/plus.svg"/>
-                <Icon className="nav-item" alt="search-question" image="icons/search.svg"/>
-                
-            </div>
-            <div className="nav-bottom-flex">
-                <Icon className="nav-item" alt="collapse" image="icons/settings_filled.svg"/>
-            </div>
-        </nav>
-    )
-}
+const Navigation = ({ isActive, setActive }) => {
+  return (
+    <nav className={isActive ? "nav is-active" : "nav"}>
+      <div className="top-flex">
+        <Icon
+          alt="collapse"
+          className="icon"
+          image="icons/chevron_duo_left.svg"
+          onClick={() => setActive(!isActive)}
+        />
+        <Icon className="icon" alt="create-question" image="icons/plus.svg" />
+        <Icon className="icon" alt="search-question" image="icons/search.svg" />
+      </div>
+      <div className="bottom-flex">
+        <Icon
+          className="icon"
+          alt="settings"
+          image="icons/settings_filled.svg"
+        />
+      </div>
+    </nav>
+  );
+};
 
-export default Navigation
+export default Navigation;
