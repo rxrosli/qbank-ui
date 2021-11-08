@@ -15,7 +15,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Header setActive={setActive}/>
+      <Header headerText="Question" setActive={setActive}/>
       <Navigation isActive={isActive} setActive={setActive}/>
 
     </div>
