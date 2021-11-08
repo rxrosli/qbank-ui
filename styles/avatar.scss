@@ -1,2 +1,16 @@
+@import "nord.scss";
+
 .avatar {
+  background: $polar0;
+  border-radius: 10px;
+  line-height: 40px;
+  width: 40px;
+  margin: 10px;
+  text-align: center;
+
+  .initials {
+    color: $frost0;
+    font-size: 16px;
+    font-weight: bold;
+  }
 }

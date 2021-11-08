@@ -1,5 +1,6 @@
 import React from "react";
 import Icon from "./Icon";
+import Avatar from "./Avatar";
 
 const Header = ({ headerText, setActive }) => {
   return (
@@ -11,6 +12,7 @@ const Header = ({ headerText, setActive }) => {
         onClick={() => setActive(true)}
       />
       <div className="title">{headerText}</div>
+      <Avatar initials="RR" />
     </header>
   );
 };
