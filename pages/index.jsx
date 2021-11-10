@@ -2,7 +2,6 @@ import Head from "next/head";
 import Image from "next/image";
 import Header from "../components/Header";
 import Navigation from "../components/Navigation";
-import Avatar from "../components/Avatar";
 import { useState } from "react";
 
 export default function Home() {
