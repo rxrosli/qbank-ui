@@ -1,10 +1,8 @@
 @import "nord.scss";
+@import "base.scss";
 @import "header.scss";
 @import "navigation.scss";
 @import "toggle.scss";
 @import "avatar.scss";
-
-html {
-  background: $snow2;
-  font-family: Helvetica, sans-serif;
-}
+@import "question-article.scss";
+@import "question-panel.scss";
