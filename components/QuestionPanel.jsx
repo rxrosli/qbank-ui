@@ -17,12 +17,12 @@ const data = [
   },
 ];
 
-const OptionField = ({ option, onToggleClick, onContentBlur }) => {
+const OptionField = ({ option, onToggleClick, onValueBlur }) => {
   return (
     <fieldset className="option-fieldset">
       <Toggle isActive={option.isActive} onClick={onToggleClick} />
       <TextareaAutosize
-        onBlur={onContentBlur}
+        onBlur={onValueBlur}
         placeholder="Type your option"
         value={option.content}
       ></TextareaAutosize>
@@ -64,7 +64,7 @@ const QuestionPanel = () => {
             key={index}
             option={option}
             onToggleClick={() => toggleOption(setOptions, option)}
-            onContentBlur={() => changeValue(setOptions, option, event)}
+            onValueBlur={() => changeValue(setOptions, option, event)}
           />
         ))}
         <button
