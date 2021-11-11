@@ -2,45 +2,81 @@ import React, { useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import Toggle from "./Toggle";
 
-// const option = {
-//   isActive: false,
-//   content: "Hello",
-// };
+const data = [
+  {
+    isActive: false,
+    value: "Hello",
+  },
+  {
+    isActive: true,
+    value: "Hello",
+  },
+  {
+    isActive: false,
+    value: "Hello",
+  },
+];
 
-const OptionField = ({ option, setOptions }) => {
+const OptionField = ({ option, onToggleClick, onContentBlur }) => {
   return (
     <fieldset className="option-fieldset">
-      <Toggle isActive={option.isActive} />
-      <TextareaAutosize placeholder="Type your option"></TextareaAutosize>
+      <Toggle isActive={option.isActive} onClick={onToggleClick} />
+      <TextareaAutosize
+        onBlur={onContentBlur}
+        placeholder="Type your option"
+        value={option.content}
+      ></TextareaAutosize>
     </fieldset>
   );
 };
 
 const QuestionPanel = () => {
-  const [options, setOptions] = useState([]);
+  const [options, setOptions] = useState(data);
+
+  function toggleOption(setOptions, option) {
+    setOptions((previousOptions) => {
+      return previousOptions.map((previousOption) => {
+        if (previousOption !== option) return previousOption;
+        return { ...option, isActive: !option.isActive };
+      });
+    });
+  }
+
+  function changeValue(setOptions, option, event) {
+    setOptions((previousOptions) => {
+      return previousOptions.map((previousOption) => {
+        if (previousOption !== option) return previousOption;
+        return { ...option, value: event.target.value };
+      });
+    });
+  }
+
+  function addOptions() {
+    setOptions(() => [...options, { isActive: false, value: "" }]);
+  }
 
   return (
     <>
       <form className="question-panel">
         <TextareaAutosize placeholder="Type your question" />
         {options.map((option, index) => (
-          <OptionField key={index} option={option} setOption={setOptions} />
+          <OptionField
+            key={index}
+            option={option}
+            onToggleClick={() => toggleOption(setOptions, option)}
+            onContentBlur={() => changeValue(setOptions, option, event)}
+          />
         ))}
-
         <button
+          className="option_button--add"
           type="button"
-          onClick={() => setOptions([...options, { isActive: true }])}
+          onClick={addOptions}
+          name="Add Option"
         >
-          add true option
-        </button>
-
-        <button
-          type="button"
-          onClick={() => setOptions([...options, { isActive: false }])}
-        >
-          add false option
+          Add Option
         </button>
       </form>
+      <pre className="json-preview">{JSON.stringify(options, null, 2)}</pre>
     </>
   );
 };
