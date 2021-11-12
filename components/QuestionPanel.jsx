@@ -24,7 +24,7 @@ const OptionField = ({ option, onToggleClick, onValueBlur }) => {
       <TextareaAutosize
         onBlur={onValueBlur}
         placeholder="Type your option"
-        value={option.content}
+        value={option.value}
       ></TextareaAutosize>
     </fieldset>
   );
