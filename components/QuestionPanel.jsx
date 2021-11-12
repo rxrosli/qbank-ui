@@ -64,7 +64,7 @@ const QuestionPanel = () => {
             key={index}
             option={option}
             onToggleClick={() => toggleOption(setOptions, option)}
-            onValueBlur={() => changeValue(setOptions, option, event)}
+            onValueBlur={(event) => changeValue(setOptions, option, event)}
           />
         ))}
         <button
