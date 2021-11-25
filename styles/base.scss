@@ -1,52 +1,52 @@
 html {
-  font-smoothing: antialiased;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background: $snow2;
-  font-family: Helvetica, sans-serif;
+	font-smoothing: antialiased;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	background: $snow2;
+	font-family: Helvetica, sans-serif;
 }
 
 legend {
-  padding: 0;
-  display: table;
+	padding: 0;
+	display: table;
 }
 fieldset {
-  border: 0;
-  padding: 0.01em 0 0 0;
-  margin: 0;
-  min-width: 0;
+	border: 0;
+	padding: 0.01em 0 0 0;
+	margin: 0;
+	min-width: 0;
 }
 body:not(:-moz-handler-blocked) fieldset {
-  display: table-cell;
+	display: table-cell;
 }
 
 textarea {
-  resize: none;
-  width: 100%;
-  padding: 5px;
+	resize: none;
+	width: 100%;
+	padding: 5px;
 
-  border: 1px solid $snow1;
-  box-sizing: border-box;
-  border-radius: 2px;
+	border: 1px solid $snow1;
+	box-sizing: border-box;
+	border-radius: 2px;
 
-  font-family: Helvetica, sans-serif;
-  font-size: 16px;
-  color: $polar3;
-  &::placeholder {
-    color: $snow1;
-  }
+	font-family: Helvetica, sans-serif;
+	font-size: 16px;
+	color: $polar3;
+	&::placeholder {
+		color: $snow1;
+	}
 
-  &:focus {
-    outline: none;
-    border: 1px solid $snow0;
-    &::placeholder {
-      color: $snow0;
-    }
-  }
+	&:focus {
+		outline: none;
+		border: 1px solid $snow0;
+		&::placeholder {
+			color: $snow0;
+		}
+	}
 }
 
 button {
-  border-width: 0px;
-  border-color: unset;
-  border-style: none;
+	border-width: 0px;
+	border-color: unset;
+	border-style: none;
 }

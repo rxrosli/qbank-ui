@@ -1,92 +1,92 @@
 .question-article {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
 
-  margin: 10px 0;
-  border-radius: 5px;
-  overflow: hidden;
-  width: 60%;
-  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+	margin: 10px 0;
+	border-radius: 5px;
+	overflow: hidden;
+	width: 65%;
+	box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 
-  .container {
-    flex: 1;
+	.container {
+		flex: 1;
 
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
 
-    padding: 10px;
-    background: white;
+		padding: 10px;
+		background: white;
 
-    .header-section {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
+		.header-section {
+			display: flex;
+			flex-direction: row;
+			align-items: flex-start;
 
-      width: 100%;
+			width: 100%;
 
-      color: $polar3;
-      font-size: 0.9rem;
+			color: $polar3;
+			font-size: 0.9rem;
 
-      element {
-        align-self: center;
-      }
+			element {
+				align-self: center;
+			}
 
-      .id {
-        flex: 1;
-      }
+			.id {
+				flex: 1;
+			}
 
-      .type {
-        margin: 0px 10px;
-        align-self: center;
-      }
+			.type {
+				margin: 0px 10px;
+				align-self: center;
+			}
 
-      .option-count {
-        align-self: center;
-        padding: 2px 6px;
-        $option-radius: 10px;
-        color: white;
+			.option-count {
+				align-self: center;
+				padding: 2px 6px;
+				$option-radius: 10px;
+				color: white;
 
-        &.true {
-          background: $aurora0;
-          border-radius: $option-radius 0 0 $option-radius;
-        }
+				&.true {
+					background: $aurora0;
+					border-radius: $option-radius 0 0 $option-radius;
+				}
 
-        &.false {
-          background: $aurora3;
-          border-radius: 0 $option-radius $option-radius 0;
-        }
-      }
-    }
-    .content-section {
-      color: $polar3;
-      font-size: 1.4rem;
-      padding: 5px 0;
-    }
-    .tag-section {
-      display: flex;
-      flex-direction: row;
-      align-items: flex-start;
-      flex-wrap: wrap;
+				&.false {
+					background: $aurora3;
+					border-radius: 0 $option-radius $option-radius 0;
+				}
+			}
+		}
+		.content-section {
+			color: $polar3;
+			font-size: 1.4rem;
+			padding: 5px 0;
+		}
+		.tag-section {
+			display: flex;
+			flex-direction: row;
+			align-items: flex-start;
+			flex-wrap: wrap;
 
-      width: 100%;
-      .tag {
-        padding: 5px;
-        margin: 2px;
-        border-radius: 5px;
-        background: $snow0;
+			width: 100%;
+			.tag {
+				padding: 5px;
+				margin: 2px;
+				border-radius: 5px;
+				background: $snow0;
 
-        color: $polar3;
-        font-size: 0.9rem;
-      }
-    }
-  }
+				color: $polar3;
+				font-size: 0.9rem;
+			}
+		}
+	}
 
-  .tab {
-    flex: 0 0 10px;
-    align-items: stretch;
-    align-self: center;
-    background: $snow0;
-  }
+	.tab {
+		flex: 0 0 10px;
+		align-items: stretch;
+		align-self: center;
+		background: $snow0;
+	}
 }
