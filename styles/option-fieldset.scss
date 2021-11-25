@@ -1,0 +1,38 @@
+.option-fieldset {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	margin-top: 10px;
+
+	.toggle {
+		flex-shrink: 0;
+		margin-right: 10px;
+	}
+
+	.field-group {
+		width: 100%;
+		padding: 2px;
+
+		display: flex;
+		flex-direction: row;
+		align-items: flex-start;
+
+		border: 1px solid $snow1;
+		box-sizing: border-box;
+		border-radius: 2px;
+	}
+
+	.field {
+		padding: 0px;
+		align-self: center;
+		border: none;
+		overflow: hidden;
+	}
+
+	.icon {
+		color: $snow1;
+		align-self: flex-start;
+		width: 24px;
+	}
+}
