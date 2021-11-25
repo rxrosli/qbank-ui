@@ -1,0 +1,13 @@
+.page {
+	width: 60%;
+	margin: 5rem auto;
+
+	position: static;
+
+	display: flex;
+	flex-direction: row;
+
+	align-items: center;
+
+	outline: dashed 1px black;
+}
