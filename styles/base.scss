@@ -54,4 +54,7 @@ button {
 input {
 	font-size: 16px;
 	outline: none;
+	&::placeholder {
+		color: $snow1;
+	}
 }
