@@ -40,7 +40,7 @@ export default function createQuestion() {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
-			<div className="page">
+			<div className="page row">
 				<QuestionPanel question={data} />
 			</div>
 

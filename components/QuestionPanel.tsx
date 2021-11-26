@@ -3,11 +3,13 @@ import IQuestion from "../models/IQuestion";
 import IOption from "../models/IOptions";
 import TextareaAutosize from "react-textarea-autosize";
 import OptionField from "./OptionField";
+import Icon from "./Icon";
 
 type Props = {
 	question: IQuestion;
 };
 const QuestionPanel = (props: Props) => {
+	const [tag, setTag] = useState<string>("");
 	const [question, setQuestion] = useState<IQuestion>(props.question);
 
 	function toggleOption(option: IOption) {
@@ -39,6 +41,10 @@ const QuestionPanel = (props: Props) => {
 		});
 	}
 
+	function addTag(tag: string) {
+		setQuestion({ ...question, tags: [...question.tags, tag] });
+	}
+
 	return (
 		<>
 			<form className="question-panel">
@@ -62,6 +68,21 @@ const QuestionPanel = (props: Props) => {
 					onClick={addOptions}
 					children="Add option"
 				/>
+			</form>
+
+			<form className="question-settings">
+				<button children="Save" type="button" className="question_button--save" />
+				<div className="tag_container">
+					<input className="tag_input" onChange={e => setTag(e.currentTarget.value)} />
+					<button type="button" className="tag_button--add" onClick={() => addTag(tag)}>
+						<Icon type="plus"></Icon>
+					</button>
+				</div>
+				<div className="tag_container">
+					{question.tags.map((tag, index) => (
+						<div children={tag} />
+					))}
+				</div>
 			</form>
 		</>
 	);

@@ -1,5 +1,5 @@
 html {
-	font-smoothing: antialiased;
+	// font-smoothing: antialiased;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	background: $snow2;
@@ -49,4 +49,9 @@ button {
 	border-width: 0px;
 	border-color: unset;
 	border-style: none;
+}
+
+input {
+	font-size: 16px;
+	outline: none;
 }

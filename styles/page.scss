@@ -5,9 +5,15 @@
 	position: static;
 
 	display: flex;
-	flex-direction: row;
-
-	align-items: center;
 
 	outline: dashed 1px black;
+
+	&.row {
+		flex-direction: row;
+		align-items: flex-start;
+	}
+
+	&.column {
+		flex-direction: column;
+	}
 }
