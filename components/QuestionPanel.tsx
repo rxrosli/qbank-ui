@@ -40,11 +40,12 @@ const QuestionPanel = (props: Props) => {
 			options: question.options.filter(prevOpt => prevOpt !== option)
 		});
 	}
-
 	function addTag(tag: string) {
 		setQuestion({ ...question, tags: [...question.tags, tag] });
 	}
-
+	function deleteTag(tag: string) {
+		setQuestion({ ...question, tags: question.tags.filter(prevTag => prevTag !== tag) });
+	}
 	return (
 		<>
 			<form className="question-panel">
@@ -72,15 +73,23 @@ const QuestionPanel = (props: Props) => {
 
 			<form className="question-settings">
 				<button children="Save" type="button" className="question_button--save" />
-				<div className="tag_container">
-					<input className="tag_input" onChange={e => setTag(e.currentTarget.value)} />
+				<div className="tag_input_section">
+					<input
+						className="tag_input"
+						placeholder="Add tag"
+						onChange={e => setTag(e.currentTarget.value)}
+					/>
 					<button type="button" className="tag_button--add" onClick={() => addTag(tag)}>
 						<Icon type="plus"></Icon>
 					</button>
 				</div>
-				<div className="tag_container">
+				<div className="tag_section">
 					{question.tags.map((tag, index) => (
-						<div children={tag} />
+						// <span className="tag" children={tag} />
+						<span className="tag">
+							{tag}
+							<Icon type="close_small" onClick={() => deleteTag(tag)} />
+						</span>
 					))}
 				</div>
 			</form>

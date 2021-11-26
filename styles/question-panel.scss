@@ -37,17 +37,40 @@
 		border-radius: 2px;
 	}
 
-	.tag_container {
+	.tag {
+		display: flex;
+		align-items: center;
+		flex-direction: row;
+		padding: 2px;
+		margin: 2px;
+		color: $polar3;
+		background: $snow0;
+		border-radius: 2px;
+		.icon {
+			width: 1.5rem;
+			height: 1.5rem;
+		}
+	}
+
+	.tag_section {
 		display: flex;
 		flex-direction: row;
+		flex-wrap: wrap;
 		margin-top: 5px;
 	}
+
 	.tag_input {
 		width: 100%;
 		color: $polar3;
 		border: 1px solid $snow0;
 		border-radius: 2px;
 		box-sizing: border-box;
+	}
+
+	.tag_input_section {
+		display: flex;
+		flex-direction: row;
+		margin-top: 5px;
 	}
 	.tag_button--add {
 		height: 24px;
@@ -61,7 +84,7 @@
 		align-items: center;
 
 		.icon {
-			width: 14px;
+			width: 20px;
 			color: $snow0;
 		}
 	}
