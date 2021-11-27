@@ -32,6 +32,9 @@ const data: IQuestion = {
 
 export default function createQuestion() {
 	const [isActive, setActive] = useState(false);
+	function getQuestionHeading(question: IQuestion): string {
+		return `Question / ${question.uuid}`;
+	}
 	return (
 		<div>
 			<Head>
@@ -44,7 +47,7 @@ export default function createQuestion() {
 				<QuestionPanel question={data} />
 			</div>
 
-			<Header heading="Question" onMenuClick={() => setActive(true)} />
+			<Header heading={getQuestionHeading(data)} onMenuClick={() => setActive(true)} />
 			<Navigation isActive={isActive} onCollapseClick={() => setActive(false)} />
 		</div>
 	);
