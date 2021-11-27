@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import IQuestion from "../models/IQuestion";
 import IOption from "../models/IOptions";
 import TextareaAutosize from "react-textarea-autosize";
-import OptionField from "./OptionField";
-import Icon from "./Icon";
+import OptionField from "../components/OptionField";
+import Icon from "../components/Icon";
 
 type Props = {
 	question: IQuestion;

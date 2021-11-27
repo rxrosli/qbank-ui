@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Header from "../../components/Header";
 import Navigation from "../../components/Navigation";
-import QuestionPanel from "../../components/QuestionPanel";
+import QuestionPanel from "../../container/QuestionPanel";
 import React, { useState } from "react";
 import IQuestion from "../../models/IQuestion";
 
