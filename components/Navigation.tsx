@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction } from "react";
+import React from "react";
+import Link from "next/link";
 import Icon from "./Icon";
 
 type Props = {
@@ -12,8 +13,12 @@ const Navigation = (props: Props) => {
 		<nav className={isActive ? "nav is-active" : "nav"}>
 			<div className="top-flex">
 				<Icon type="chevron_duo_left" onClick={onCollapseClick} />
-				<Icon type="plus" />
-				<Icon type="search" />
+				<Link href="/questions/create">
+					<Icon type="plus" />
+				</Link>
+				<Link href="/questions/view">
+					<Icon type="search" />
+				</Link>
 			</div>
 			<div className="bottom-flex">
 				<Icon type="log_out" />

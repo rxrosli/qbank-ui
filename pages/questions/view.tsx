@@ -3,7 +3,7 @@ import Header from "../../components/Header";
 import Navigation from "../../components/Navigation";
 import ArticleContainer from "../../container/ArticleContainer";
 import IQuestion from "../../models/IQuestion";
-import React from "react";
+import React, { useState } from "react";
 
 const question: IQuestion = {
 	uuid: "5f2ed776-24a8-423b-b0b1-2401d1944cb0",
@@ -38,6 +38,7 @@ const questionSet: IQuestion[] = [
 	{ ...question }
 ];
 function view() {
+	const [isActive, setActive] = useState(false);
 	return (
 		<div>
 			<Head>
@@ -49,6 +50,8 @@ function view() {
 			<div className="page column">
 				<ArticleContainer questions={questionSet} />
 			</div>
+			<Header heading="Questions" onMenuClick={() => setActive(true)} />
+			<Navigation isActive={isActive} onCollapseClick={() => setActive(false)} />
 		</div>
 	);
 }
