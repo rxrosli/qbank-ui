@@ -1,30 +1,30 @@
 import React from "react";
+import IQuestion from "../models/IQuestion";
+import IOption from "../models/IOptions";
 
 type Props = {
-	uuid: string;
-	type: string;
-	options: {
-		trueOptions: number;
-		falseOptions: number;
-	};
-	content: string;
-	tags: string[];
+	question: IQuestion;
 };
 
 const QuestionArticle = (props: Props) => {
-	const { uuid, type, options, content, tags } = props;
+	const { question } = props;
+
 	return (
 		<article className="question-article">
 			<div className="container">
 				<section className="header-section">
-					<div className="id">{uuid}</div>
-					<div className="type">{type}</div>
-					<div className="option-count true">{options.trueOptions}</div>
-					<div className="option-count false">{options.falseOptions}</div>
+					<div className="id">{question.uuid}</div>
+					<div className="type">{question.type}</div>
+					<div className="option-count true">
+						{question.options.filter(option => option.isToggled === true).length}
+					</div>
+					<div className="option-count false">
+						{question.options.filter(option => option.isToggled === false).length}
+					</div>
 				</section>
-				<section className="content-section">{content}</section>
+				<section className="content-section">{question.stem}</section>
 				<section className="tag-section">
-					{tags.map((tag, index) => {
+					{question.tags.map((tag, index) => {
 						return (
 							<span key={index} className="tag">
 								{tag}
