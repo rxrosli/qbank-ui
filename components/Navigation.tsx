@@ -16,7 +16,7 @@ const Navigation = (props: Props) => {
 				<Icon type="search" />
 			</div>
 			<div className="bottom-flex">
-				<Icon type="settings_filled" />
+				<Icon type="log_out" />
 			</div>
 		</nav>
 	);
