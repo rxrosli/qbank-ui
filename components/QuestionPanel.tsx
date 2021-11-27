@@ -64,6 +64,12 @@ const QuestionPanel = (props: Props) => {
 						onToggleClick={() => toggleOption(option)}
 						onValueChange={e => changeValue(option, e.currentTarget.value)}
 						onDeleteClick={() => deleteOption(option)}
+						onFieldPressEnter={e => {
+							if (e.code === "Enter") {
+								e.preventDefault();
+								addOptions();
+							}
+						}}
 					/>
 				))}
 				<button
@@ -81,6 +87,12 @@ const QuestionPanel = (props: Props) => {
 						className="tag_input"
 						placeholder="Add tag"
 						onChange={e => setTag(e.currentTarget.value)}
+						onKeyPress={e => {
+							if (e.code === "Enter") {
+								e.preventDefault();
+								addTag(tag);
+							}
+						}}
 						value={tag}
 					/>
 					<button type="button" className="tag_button--add" onClick={() => addTag(tag)}>
