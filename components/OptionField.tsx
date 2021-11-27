@@ -9,7 +9,7 @@ type Props = {
 	onToggleClick: React.MouseEventHandler<HTMLDivElement>;
 	onValueChange: React.ChangeEventHandler<HTMLTextAreaElement>;
 	onDeleteClick: React.MouseEventHandler<HTMLDivElement>;
-	onFieldPressEnter: React.KeyboardEventHandler<HTMLTextAreaElement>;
+	onFieldPressEnter?: React.KeyboardEventHandler<HTMLTextAreaElement>;
 };
 
 const OptionField = (props: Props) => {
