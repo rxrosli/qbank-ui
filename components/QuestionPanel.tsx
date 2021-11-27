@@ -41,7 +41,10 @@ const QuestionPanel = (props: Props) => {
 		});
 	}
 	function addTag(tag: string) {
-		setQuestion({ ...question, tags: [...question.tags, tag] });
+		if (!question.tags.some(PrevTag => PrevTag === tag || tag === "")) {
+			setQuestion({ ...question, tags: [...question.tags, tag] });
+		}
+		setTag("");
 	}
 	function deleteTag(tag: string) {
 		setQuestion({ ...question, tags: question.tags.filter(prevTag => prevTag !== tag) });
@@ -78,6 +81,7 @@ const QuestionPanel = (props: Props) => {
 						className="tag_input"
 						placeholder="Add tag"
 						onChange={e => setTag(e.currentTarget.value)}
+						value={tag}
 					/>
 					<button type="button" className="tag_button--add" onClick={() => addTag(tag)}>
 						<Icon type="plus"></Icon>
@@ -85,7 +89,6 @@ const QuestionPanel = (props: Props) => {
 				</div>
 				<div className="tag_section">
 					{question.tags.map((tag, index) => (
-						// <span className="tag" children={tag} />
 						<span className="tag">
 							{tag}
 							<Icon type="close_small" onClick={() => deleteTag(tag)} />
