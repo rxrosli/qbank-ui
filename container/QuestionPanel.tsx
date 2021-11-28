@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import IQuestion from "../models/IQuestion";
 import IOption from "../models/IOptions";
 import TextareaAutosize from "react-textarea-autosize";
@@ -9,7 +9,8 @@ type Props = {
 	question: IQuestion;
 };
 const QuestionPanel = (props: Props) => {
-	const [tag, setTag] = useState<string>("");
+	// const [tag, setTag] = useState<string>("");
+	const tagInputRef = useRef<HTMLInputElement>(null);
 	const [question, setQuestion] = useState<IQuestion>(props.question);
 
 	function toggleOption(option: IOption) {
@@ -44,10 +45,20 @@ const QuestionPanel = (props: Props) => {
 		if (!question.tags.some(PrevTag => PrevTag === tag || tag === "")) {
 			setQuestion({ ...question, tags: [...question.tags, tag] });
 		}
-		setTag("");
 	}
 	function deleteTag(tag: string) {
 		setQuestion({ ...question, tags: question.tags.filter(prevTag => prevTag !== tag) });
+	}
+	function onPressEnterHandler(
+		fn: (value: string) => void,
+		event: React.KeyboardEvent<HTMLInputElement>,
+		ref?: React.RefObject<HTMLInputElement>
+	) {
+		if (event.code === "Enter") {
+			event.preventDefault();
+			fn(event.currentTarget.value);
+			ref!.current!.value = "";
+		}
 	}
 	return (
 		<>
@@ -64,12 +75,6 @@ const QuestionPanel = (props: Props) => {
 						onToggleClick={() => toggleOption(option)}
 						onValueChange={e => changeValue(option, e.currentTarget.value)}
 						onDeleteClick={() => deleteOption(option)}
-						onFieldPressEnter={e => {
-							if (e.code === "Enter") {
-								e.preventDefault();
-								addOptions();
-							}
-						}}
 					/>
 				))}
 				<button
@@ -79,23 +84,22 @@ const QuestionPanel = (props: Props) => {
 					children="Add option"
 				/>
 			</form>
-
 			<form className="question-settings">
 				<button children="Save" type="button" className="question_button--save" />
 				<div className="tag_input_section">
 					<input
 						className="tag_input"
 						placeholder="Add tag"
-						onChange={e => setTag(e.currentTarget.value)}
+						ref={tagInputRef}
 						onKeyPress={e => {
-							if (e.code === "Enter") {
-								e.preventDefault();
-								addTag(tag);
-							}
+							onPressEnterHandler(addTag, e, tagInputRef);
 						}}
-						value={tag}
 					/>
-					<button type="button" className="tag_button--add" onClick={() => addTag(tag)}>
+					<button
+						type="button"
+						className="tag_button--add"
+						onClick={() => addTag(tagInputRef?.current?.value || "")}
+					>
 						<Icon type="plus"></Icon>
 					</button>
 				</div>
