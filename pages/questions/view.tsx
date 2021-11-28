@@ -1,6 +1,6 @@
 import Head from "next/head";
-import Header from "../../components/Header";
-import Navigation from "../../components/Navigation";
+import Header from "../../components/layout/Header";
+import Navigation from "../../components/layout/Navigation";
 import ArticleContainer from "../../container/ArticleContainer";
 import IQuestion from "../../models/IQuestion";
 import React, { useState } from "react";
