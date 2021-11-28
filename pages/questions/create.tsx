@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
 import QuestionPanel from "../../container/QuestionPanel";
@@ -37,12 +36,6 @@ export default function createQuestion() {
 	}
 	return (
 		<div>
-			<Head>
-				<title>qBank</title>
-				<meta name="description" content="Question Repository System" />
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
-
 			<div className="page row">
 				<QuestionPanel question={data} />
 			</div>

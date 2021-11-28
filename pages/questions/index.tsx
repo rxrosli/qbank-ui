@@ -1,4 +1,3 @@
-import Head from "next/head";
 import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
 import ArticleContainer from "../../container/ArticleContainer";
@@ -37,16 +36,10 @@ const questionSet: IQuestion[] = [
 	{ ...question },
 	{ ...question }
 ];
-function view() {
+function search() {
 	const [isActive, setActive] = useState(false);
 	return (
 		<div>
-			<Head>
-				<title>qBank</title>
-				<meta name="description" content="Question Repository System" />
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
-
 			<div className="page column">
 				<ArticleContainer questions={questionSet} />
 			</div>
@@ -56,4 +49,4 @@ function view() {
 	);
 }
 
-export default view;
+export default search;
