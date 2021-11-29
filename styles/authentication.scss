@@ -1,15 +1,49 @@
 .auth-body {
-	background: $polar1;
+	background: $polar0;
 }
 .auth-container {
-	width: 25%;
+	width: 30%;
 	margin: 0 auto;
-	outline: dashed 1px $snow2;
+	// outline: dashed 1px $snow2;
 	// background: $polar3;
 }
 .auth-form-header {
+	margin: 0;
 	text-align: center;
 	font-size: 24px;
 	font-weight: 300;
 	color: $snow0;
+}
+.auth-form-body {
+	padding: 2rem 1.5rem;
+	margin-top: 1rem;
+	background: $polar1;
+	outline: solid 1px $polar2;
+	border-radius: 5px;
+	.auth-input {
+		margin-bottom: 1rem;
+	}
+}
+.auth-label {
+	color: $snow2;
+}
+.auth-input {
+	width: 100%;
+	padding: 5px;
+	border-style: none;
+	border-radius: 5px;
+	box-sizing: border-box;
+}
+.auth-submit {
+	width: 100%;
+	padding: 0.5rem;
+	border-radius: 5px;
+	color: $snow2;
+	background: $polar2;
+	outline: solid 1px $polar3;
+	box-sizing: border-box;
+	&:hover {
+		background: $polar3;
+		outline: solid 2px $polar3;
+	}
 }
