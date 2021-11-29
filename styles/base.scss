@@ -2,10 +2,11 @@ html {
 	// font-smoothing: antialiased;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
-	background: $snow2;
 	font-family: Helvetica, sans-serif;
 }
-
+body {
+	background: $snow2;
+}
 legend {
 	padding: 0;
 	display: table;
