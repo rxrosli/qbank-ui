@@ -9,11 +9,12 @@ type Props = {
 	onToggleClick: React.MouseEventHandler<HTMLDivElement>;
 	onValueChange: React.ChangeEventHandler<HTMLTextAreaElement>;
 	onDeleteClick: React.MouseEventHandler<HTMLDivElement>;
-	onKeyPress?: React.KeyboardEventHandler<HTMLTextAreaElement>;
+	onFieldPressEnter?: React.KeyboardEventHandler<HTMLTextAreaElement>;
 };
 
 const OptionField = (props: Props) => {
-	const { option, onToggleClick, onValueChange, onDeleteClick, onKeyPress } = props;
+	const { option, onToggleClick, onValueChange, onDeleteClick, onFieldPressEnter } =
+		props;
 	return (
 		<fieldset className="option-fieldset">
 			<Toggle isToggled={option.isToggled} onToggleClick={onToggleClick} />
@@ -22,7 +23,7 @@ const OptionField = (props: Props) => {
 					className="field"
 					onChange={onValueChange}
 					placeholder="Type your option"
-					onKeyPress={onKeyPress}
+					onKeyPress={onFieldPressEnter}
 					value={option.value}
 				></TextareaAutosize>
 				<Icon type="trash" onClick={onDeleteClick} />
