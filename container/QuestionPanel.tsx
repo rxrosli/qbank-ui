@@ -64,7 +64,7 @@ const QuestionPanel = (props: Props) => {
 						onToggleClick={() => toggleOption(option)}
 						onValueChange={e => changeValue(option, e.currentTarget.value)}
 						onDeleteClick={() => deleteOption(option)}
-						onFieldPressEnter={e => {
+						onKeyPress={e => {
 							if (e.code === "Enter") {
 								e.preventDefault();
 								addOptions();
