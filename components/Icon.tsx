@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {
 	onClick?: React.MouseEventHandler<HTMLDivElement>;
-	type: "chevron_duo_left" | "hamburger" | "plus" | "search" | "settings_filled" | "trash" | "close_small" | "log_out";
+	type: "chevron_duo_left" | "hamburger" | "plus" | "search" | "settings_filled" | "trash" | "close_small" | "log_out" | "caret_down";
 };
 
 const Icon = (props: Props) => {
@@ -17,6 +17,7 @@ const Icon = (props: Props) => {
 		case "trash": svg = <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M17 22H7C5.89543 22 5 21.1046 5 20V7H3V5H7V4C7 2.89543 7.89543 2 9 2H15C16.1046 2 17 2.89543 17 4V5H21V7H19V20C19 21.1046 18.1046 22 17 22ZM7 7V20H17V7H7ZM9 4V5H15V4H9ZM15 18H13V9H15V18ZM11 18H9V9H11V18Z" fill="currentColor"/></svg>; break;
 		case "close_small": svg = <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.59 7L12 10.59L8.41 7L7 8.41L10.59 12L7 15.59L8.41 17L12 13.41L15.59 17L17 15.59L13.41 12L17 8.41L15.59 7Z" fill="currentColor"/></svg>; break;
 		case "log_out": svg = <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19 21H10C8.89543 21 8 20.1046 8 19V15H10V19H19V5H10V9H8V5C8 3.89543 8.89543 3 10 3H19C20.1046 3 21 3.89543 21 5V19C21 20.1046 20.1046 21 19 21ZM12 16V13H3V11H12V8L17 12L12 16Z" fill="currentColor"/></svg>; break;
+		case "caret_down": svg= <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 14.5L17 9.5H7L12 14.5Z" fill="currentColor"/></svg>; break;
 	}
 	return <div className="icon" onClick={onClick}>{svg}</div>;
 };
