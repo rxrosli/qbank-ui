@@ -1,8 +1,10 @@
 import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
 import ArticleContainer from "../../container/ArticleContainer";
+import Dropdown from "../../components/Dropdown";
 import IQuestion from "../../models/IQuestion";
 import React, { useState } from "react";
+import Icon from "../../components/Icon";
 
 const question: IQuestion = {
 	uuid: "5f2ed776-24a8-423b-b0b1-2401d1944cb0",
@@ -36,11 +38,34 @@ const questionSet: IQuestion[] = [
 	{ ...question },
 	{ ...question }
 ];
+
+type SearchQuery = {
+	target: string;
+	query: string;
+};
 function search() {
-	const [isActive, setActive] = useState(false);
+	const searchOptions = ["tag", "question", "id"];
+	const [searchQuery, setSearchQuery] = useState<SearchQuery>({
+		target: "tag",
+		query: ""
+	});
+	const [isActive, setActive] = useState<boolean>(false);
 	return (
 		<div>
 			<div className="page column">
+				<div className="question-search">
+					{/* TODO: add dropdown icon later */}
+					{/* <Icon type="caret_down" /> */}
+					<Dropdown
+						options={searchOptions}
+						onChange={e =>
+							setSearchQuery({ ...searchQuery, target: e.currentTarget.value })
+						}
+					/>
+					<input />
+					<button />
+				</div>
+
 				<ArticleContainer questions={questionSet} />
 			</div>
 			<Header heading="Questions" onMenuClick={() => setActive(true)} />

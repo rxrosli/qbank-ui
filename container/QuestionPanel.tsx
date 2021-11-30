@@ -4,6 +4,7 @@ import IOption from "../models/IOptions";
 import TextareaAutosize from "react-textarea-autosize";
 import OptionField from "../components/OptionField";
 import Icon from "../components/Icon";
+import Dropdown from "../components/Dropdown";
 
 type Props = {
 	question: IQuestion;
@@ -82,23 +83,33 @@ const QuestionPanel = (props: Props) => {
 
 			<form className="question-settings">
 				<button children="Save" type="button" className="question_button--save" />
-				<div className="tag_input_section">
-					<input
-						className="tag_input"
-						placeholder="Add tag"
-						onChange={e => setTag(e.currentTarget.value)}
-						onKeyPress={e => {
-							if (e.code === "Enter") {
-								e.preventDefault();
-								addTag(tag);
-							}
-						}}
-						value={tag}
-					/>
-					<button type="button" className="tag_button--add" onClick={() => addTag(tag)}>
-						<Icon type="plus"></Icon>
-					</button>
+
+				<div className="input-group">
+					<label children="Type" />
+					<Dropdown options={["Multiple Choice", "True/False"]} />
 				</div>
+
+				<div className="input-group">
+					<label children="Tags" />
+					<div className="input-section">
+						<input
+							className="tag_input"
+							placeholder="Add tag"
+							onChange={e => setTag(e.currentTarget.value)}
+							onKeyPress={e => {
+								if (e.code === "Enter") {
+									e.preventDefault();
+									addTag(tag);
+								}
+							}}
+							value={tag}
+						/>
+						<button type="button" className="tag_button--add" onClick={() => addTag(tag)}>
+							<Icon type="plus"></Icon>
+						</button>
+					</div>
+				</div>
+
 				<div className="tag_section">
 					{question.tags.map((tag, index) => (
 						<span className="tag">

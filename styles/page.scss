@@ -6,8 +6,6 @@
 
 	display: flex;
 
-	outline: dashed 1px black;
-
 	&.row {
 		flex-direction: row;
 		align-items: flex-start;
