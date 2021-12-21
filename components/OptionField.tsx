@@ -16,7 +16,7 @@ const OptionField = (props: Props) => {
 	const { option, onToggleClick, onValueChange, onDeleteClick, onKeyPress } = props;
 	return (
 		<fieldset className="option-fieldset">
-			<Toggle isToggled={option.isToggled} onToggleClick={onToggleClick} />
+			<Toggle isToggled={option.condition} onToggleClick={onToggleClick} />
 			<div className="field-group">
 				<TextareaAutosize
 					className="field"

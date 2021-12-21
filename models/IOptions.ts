@@ -1,5 +1,5 @@
 interface IOption {
-	isToggled: boolean;
+	condition: boolean;
 	value: string;
 }
 

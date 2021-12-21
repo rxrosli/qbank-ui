@@ -5,17 +5,13 @@ import QuestionArticle from "../components/QuestionArticle";
 type Props = {
 	questions: IQuestion[];
 };
-
-const ArticleContainer = (props: Props) => {
-	const [questions, setQuestions] = useState<IQuestion[]>(props.questions);
-
+const Articles = (props: Props) => {
 	return (
 		<div>
-			{questions.map(question => (
+			{props.questions.map(question => (
 				<QuestionArticle question={question} />
 			))}
 		</div>
 	);
 };
-
-export default ArticleContainer;
+export default Articles;

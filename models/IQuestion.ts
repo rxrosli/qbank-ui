@@ -1,7 +1,7 @@
 import IOption from "./IOptions";
 
 interface IQuestion {
-	uuid: string;
+	_id?: string;
 	type: string;
 	stem: string;
 	options: IOption[];

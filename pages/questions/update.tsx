@@ -10,31 +10,27 @@ import {
 	FetchApiParams,
 	refreshToken
 } from "../../services/fetch";
-import router from "next/dist/client/router";
+import { useRouter } from "next/dist/client/router";
 
 function getQuestionHeading(question: IQuestion): string {
-	return `Question / Create`;
+	return `Question / ${question._id}`;
 }
 
-export default function createQuestion() {
+export default function updateQuestion() {
+	const router = useRouter();
+	const { id } = router.query;
 	const [isNavActive, setNavActive] = useState(false);
-	const [question, setQuestion] = useState<IQuestion>({
-		type: "Multiple Choice",
-		stem: "",
-		options: [],
-		tags: []
-	});
+	const [question, setQuestion] = useState<IQuestion>();
 
-	async function pushQuestion(question: IQuestion) {
+	async function updateQuestion(question: IQuestion) {
 		const apiParams: FetchApiParams = {
-			uri: "/questions",
-			method: "POST",
+			uri: "/questions/" + id,
+			method: "PATCH",
 			body: question
 		};
 		const events: FetchApiEvents = {
 			onSuccess: async data => {
 				console.log(data.data.data._id);
-				router.push("/questions/" + data.data.data._id);
 				return;
 			},
 			onError: async error => {
@@ -50,16 +46,33 @@ export default function createQuestion() {
 			router.push("/login");
 			return;
 		}
-	}, []);
+		if (!id) {
+			return;
+		}
+		const apiParams: FetchApiParams = {
+			uri: `/questions/${id}`,
+			method: "GET",
+			body: {}
+		};
+		const events: FetchApiEvents = {
+			onSuccess: async data => {
+				setQuestion(data.data.data);
+			},
+			onError: async error => {
+				console.log(error.response.data.error.message);
+			},
+			onTokenExpired: () => refreshToken()
+		};
+		fetchApi(apiParams, events);
+	}, [id]);
 
-	return (
+	return question ? (
 		<div>
 			<div className="page row">
-				{/* TODO add empty fields validation */}
 				<QuestionPanel
 					question={question}
 					setQuestion={setQuestion}
-					onSaveClick={() => pushQuestion(question)}
+					onSaveClick={() => updateQuestion(question)}
 				/>
 			</div>
 
@@ -69,5 +82,7 @@ export default function createQuestion() {
 			/>
 			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
 		</div>
+	) : (
+		<div>loading...</div>
 	);
 }

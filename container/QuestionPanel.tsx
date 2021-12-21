@@ -8,16 +8,18 @@ import Dropdown from "../components/Dropdown";
 
 type Props = {
 	question: IQuestion;
+	setQuestion: (question: IQuestion) => void;
+	onSaveClick: React.MouseEventHandler<HTMLButtonElement>;
 };
 const QuestionPanel = (props: Props) => {
+	const { question, setQuestion, onSaveClick } = props;
 	const [tag, setTag] = useState<string>("");
-	const [question, setQuestion] = useState<IQuestion>(props.question);
 
 	function toggleOption(option: IOption) {
 		setQuestion({
 			...question,
 			options: question.options.map(prevOpt =>
-				prevOpt !== option ? prevOpt : { ...option, isToggled: !prevOpt.isToggled }
+				prevOpt !== option ? prevOpt : { ...option, condition: !prevOpt.condition }
 			)
 		});
 	}
@@ -32,7 +34,7 @@ const QuestionPanel = (props: Props) => {
 	function addOptions() {
 		setQuestion({
 			...question,
-			options: [...question.options, { isToggled: false, value: "" }]
+			options: [...question.options, { condition: false, value: "" }]
 		});
 	}
 	function deleteOption(option: IOption) {
@@ -55,12 +57,12 @@ const QuestionPanel = (props: Props) => {
 			<form className="question-panel">
 				<TextareaAutosize
 					placeholder="Type your question"
-					value={question.stem}
+					value={props.question.stem}
 					onChange={e => setQuestion({ ...question, stem: e.currentTarget.value })}
 				/>
-				{question.options.map((option, index) => (
+				{props.question.options.map((option, index) => (
 					<OptionField
-						key={index}
+						key={option.value}
 						option={option}
 						onToggleClick={() => toggleOption(option)}
 						onValueChange={e => changeValue(option, e.currentTarget.value)}
@@ -82,11 +84,19 @@ const QuestionPanel = (props: Props) => {
 			</form>
 
 			<form className="question-settings">
-				<button children="Save" type="button" className="question_button--save" />
+				<button
+					children="Save"
+					type="button"
+					className="question_button--save"
+					onClick={onSaveClick}
+				/>
 
 				<div className="input-group">
 					<label children="Type" />
-					<Dropdown options={["Multiple Choice", "True/False"]} />
+					<Dropdown
+						options={["Multiple Choice", "True/False"]}
+						onChange={e => setQuestion({ ...question, type: e.currentTarget.value })}
+					/>
 				</div>
 
 				<div className="input-group">
@@ -111,8 +121,8 @@ const QuestionPanel = (props: Props) => {
 				</div>
 
 				<div className="tag_section">
-					{question.tags.map((tag, index) => (
-						<span className="tag">
+					{question.tags.map(tag => (
+						<span className="tag" key={tag}>
 							{tag}
 							<Icon type="close_small" onClick={() => deleteTag(tag)} />
 						</span>

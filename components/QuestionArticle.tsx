@@ -13,13 +13,13 @@ const QuestionArticle = (props: Props) => {
 		<article className="question-article">
 			<div className="container">
 				<section className="header-section">
-					<div className="id">{question.uuid}</div>
+					<div className="id">{question._id}</div>
 					<div className="type">{question.type}</div>
 					<div className="option-count true">
-						{question.options.filter(option => option.isToggled === true).length}
+						{question.options.filter(option => option.condition === true).length}
 					</div>
 					<div className="option-count false">
-						{question.options.filter(option => option.isToggled === false).length}
+						{question.options.filter(option => option.condition === false).length}
 					</div>
 				</section>
 				<section className="content-section">{question.stem}</section>

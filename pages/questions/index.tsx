@@ -1,55 +1,50 @@
 import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
-import ArticleContainer from "../../container/ArticleContainer";
+import Articles from "../../container/Articles";
 import Dropdown from "../../components/Dropdown";
 import IQuestion from "../../models/IQuestion";
-import React, { useState } from "react";
-import Icon from "../../components/Icon";
-
-const question: IQuestion = {
-	uuid: "5f2ed776-24a8-423b-b0b1-2401d1944cb0",
-	type: "Multiple Choice",
-	stem: "The adrenal medulla secretes which of the following in the greatest quantity?",
-	options: [
-		{
-			isToggled: true,
-			value: "Hello World"
-		},
-		{
-			isToggled: true,
-			value: "Hello World"
-		},
-		{
-			isToggled: false,
-			value: "Hello"
-		},
-		{
-			isToggled: false,
-			value: "Hello"
-		}
-	],
-	tags: ["Parasitology", "Chemistry", "Biology"]
-};
-
-const questionSet: IQuestion[] = [
-	{ ...question },
-	{ ...question },
-	{ ...question },
-	{ ...question },
-	{ ...question }
-];
+import React, { useEffect, useState } from "react";
+import {
+	authenticated,
+	fetchApi,
+	FetchApiEvents,
+	FetchApiParams,
+	refreshToken
+} from "../../services/fetch";
+import router from "next/dist/client/router";
 
 type SearchQuery = {
 	target: string;
 	query: string;
 };
+
 function search() {
+	const [isActive, setActive] = useState<boolean>(false);
 	const searchOptions = ["tag", "question", "id"];
+	const [questions, setQuestions] = useState<IQuestion[]>([]);
 	const [searchQuery, setSearchQuery] = useState<SearchQuery>({
 		target: "tag",
 		query: ""
 	});
-	const [isActive, setActive] = useState<boolean>(false);
+
+	useEffect(() => {
+		if (!authenticated()) {
+			router.push("/login");
+			return;
+		}
+		const apiParams: FetchApiParams = { uri: "/questions", method: "GET", body: {} };
+		const events: FetchApiEvents = {
+			onSuccess: async data => {
+				setQuestions(data.data.data);
+			},
+			onError: async error => {
+				console.log(error.response.data.error.message.name);
+				router.push("/login");
+			},
+			onTokenExpired: () => refreshToken()
+		};
+		fetchApi(apiParams, events);
+	}, []);
 	return (
 		<div>
 			<div className="page column">
@@ -65,8 +60,7 @@ function search() {
 					<input />
 					<button />
 				</div>
-
-				<ArticleContainer questions={questionSet} />
+				<Articles questions={questions} />
 			</div>
 			<Header heading="Questions" onMenuClick={() => setActive(true)} />
 			<Navigation isActive={isActive} onCollapseClick={() => setActive(false)} />

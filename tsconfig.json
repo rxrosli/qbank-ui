@@ -25,7 +25,8 @@
 		"emitDecoratorMetadata": true,
 		"experimentalDecorators": true,
 		"declaration": true,
-		"incremental": true
+		"incremental": true,
+		"useUnknownInCatchVariables": false
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "components/Navigation.jsx"],
 	"exclude": ["node_modules"]

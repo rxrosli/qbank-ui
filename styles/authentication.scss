@@ -47,3 +47,12 @@
 		outline: solid 2px $polar3;
 	}
 }
+
+.auth-notif {
+	&-failed {
+		margin: 0 auto;
+		color: $aurora0;
+		text-align: center;
+		padding: 1rem;
+	}
+}
