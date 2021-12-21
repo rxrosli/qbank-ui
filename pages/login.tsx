@@ -10,7 +10,7 @@ export default function Login() {
 
 	const auth = axios.create({
 		baseURL: process.env.NEXT_PUBLIC_API_URL,
-		timeout: 1000,
+		timeout: parseInt(process.env.NEXT_PUBLIC_TIMEOUT || "10000"),
 		headers: {
 			"Content-Type": "application/json",
 			Accept: "application/json"
@@ -27,6 +27,7 @@ export default function Login() {
 
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
+
 		await auth({
 			method: "POST",
 			url: "/auth",
