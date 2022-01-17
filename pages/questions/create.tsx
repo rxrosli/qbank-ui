@@ -16,7 +16,7 @@ function getQuestionHeading(question: IQuestion): string {
 	return `Question / Create`;
 }
 
-export default function createQuestion() {
+export default function CreateQuestion() {
 	const [isNavActive, setNavActive] = useState(false);
 	const [question, setQuestion] = useState<IQuestion>({
 		type: "Multiple Choice",

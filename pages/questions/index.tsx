@@ -18,7 +18,7 @@ type SearchQuery = {
 	query: string;
 };
 
-function search() {
+function Search() {
 	const [isActive, setActive] = useState<boolean>(false);
 	const searchOptions = ["tag", "question", "id"];
 	const [questions, setQuestions] = useState<IQuestion[]>([]);
@@ -68,4 +68,4 @@ function search() {
 	);
 }
 
-export default search;
+export default Search;

@@ -65,11 +65,13 @@ export default function Login() {
 						value={userInput.password}
 						onChange={e => handlePasswordChange(e.currentTarget.value)}
 					/>
-					<button className="auth-submit" children="Sign In" type="submit" />
+					<button className="auth-submit" type="submit">
+						Sign In
+					</button>
 				</div>
 			</form>
 			{authFailed ? (
-				<div className="auth-notif-failed" children="authentication failed." />
+				<div className="auth-notif-failed">authentication failed.</div>
 			) : null}
 		</>
 	);

@@ -13,10 +13,10 @@ const Navigation = (props: Props) => {
 		<nav className={isActive ? "nav is-active" : "nav"}>
 			<div className="top-flex">
 				<Icon type="chevron_duo_left" onClick={onCollapseClick} />
-				<Link href="/questions/create">
+				<Link href="/questions/create" passHref>
 					<Icon type="plus" />
 				</Link>
-				<Link href="/questions/view">
+				<Link href="/questions/view" passHref>
 					<Icon type="search" />
 				</Link>
 			</div>

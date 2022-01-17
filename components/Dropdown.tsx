@@ -10,7 +10,9 @@ const Dropdown = (props: Props) => {
 		<>
 			<select className="drop-select" onChange={onChange}>
 				{options.map((option, index) => (
-					<option className="drop-option" value={option} key={index} children={option} />
+					<option className="drop-option" value={option} key={index}>
+						{option}
+					</option>
 				))}
 			</select>
 		</>
