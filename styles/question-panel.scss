@@ -29,11 +29,22 @@
 	border-radius: 5px;
 
 	.question_button--save {
+		margin-top: 1rem;
 		width: 100%;
 		padding: 5px;
 
 		color: white;
 		background: $frost0;
+		border-radius: 2px;
+	}
+
+	.question_button--delete {
+		margin-top: 0.5rem;
+		width: 100%;
+		padding: 5px;
+
+		color: white;
+		background: $aurora0;
 		border-radius: 2px;
 	}
 

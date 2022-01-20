@@ -12,13 +12,14 @@ import {
 	refreshToken
 } from "../../services/fetch";
 
-export default function Question() {
+export default function UpdateQuestion() {
 	const router = useRouter();
 	const { id } = router.query;
 	const [isNavActive, setNavActive] = useState(false);
 	const [question, setQuestion] = useState<IQuestion>();
 
 	async function handleOnSaveClick(question: IQuestion) {
+		// const { id } = Router.query;
 		const apiParams: FetchApiParams = {
 			uri: "/questions/" + id,
 			method: "PATCH",
@@ -31,46 +32,27 @@ export default function Question() {
 			},
 			onError: async error => {
 				console.log(JSON.stringify(error, null, 2));
-			},
-			onTokenExpired: () => refreshToken()
-		};
-		await fetchApi(apiParams, events);
-	}
-
-	async function handleOnDeleteClick(question: IQuestion) {
-		const apiParams: FetchApiParams = {
-			uri: "/questions/" + id,
-			method: "DELETE",
-			body: {}
-		};
-		const events: FetchApiEvents = {
-			onError: async error => {
-				console.log(JSON.stringify(error, null, 2));
 				console.log(error);
 			},
 			onTokenExpired: () => refreshToken()
 		};
 		await fetchApi(apiParams, events);
-		Router.push("/questions");
 	}
 
-	function handleOnLoad() {
-		const apiParams: FetchApiParams = {
-			uri: `/questions/${id}`,
-			method: "GET",
-			body: {}
-		};
-		const events: FetchApiEvents = {
-			onSuccess: async data => {
-				setQuestion(data.data.data);
-			},
-			onError: async error => {
-				console.log(error.response?.data?.error?.message);
-			},
-			onTokenExpired: () => refreshToken()
-		};
-		fetchApi(apiParams, events);
-	}
+	const apiParams: FetchApiParams = {
+		uri: `/questions/${id}`,
+		method: "GET",
+		body: {}
+	};
+	const events: FetchApiEvents = {
+		onSuccess: async data => {
+			setQuestion(data.data.data);
+		},
+		onError: async error => {
+			console.log(error.response?.data?.error?.message);
+		},
+		onTokenExpired: () => refreshToken()
+	};
 
 	useEffect(() => {
 		if (!authenticated()) {
@@ -80,7 +62,7 @@ export default function Question() {
 		if (!id) {
 			return;
 		}
-		handleOnLoad();
+		fetchApi(apiParams, events);
 	}, [id]);
 
 	return question ? (
@@ -90,7 +72,6 @@ export default function Question() {
 					question={question}
 					setQuestion={setQuestion}
 					onSaveClick={() => handleOnSaveClick(question)}
-					onDeleteClick={() => handleOnDeleteClick(question)}
 				/>
 			</div>
 

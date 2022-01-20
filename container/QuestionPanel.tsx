@@ -10,9 +10,10 @@ type Props = {
 	question: IQuestion;
 	setQuestion: (question: IQuestion) => void;
 	onSaveClick: React.MouseEventHandler<HTMLButtonElement>;
+	onDeleteClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 const QuestionPanel = (props: Props) => {
-	const { question, setQuestion, onSaveClick } = props;
+	const { question, setQuestion, onSaveClick, onDeleteClick } = props;
 	const [tag, setTag] = useState<string>("");
 
 	function toggleOption(option: IOption) {
@@ -75,24 +76,14 @@ const QuestionPanel = (props: Props) => {
 						}}
 					/>
 				))}
-				<button
-					className="option_button--add"
-					type="button"
-					onClick={addOptions}
-					children="Add option"
-				/>
+				<button className="option_button--add" type="button" onClick={addOptions}>
+					Add option
+				</button>
 			</form>
 
 			<form className="question-settings">
-				<button
-					children="Save"
-					type="button"
-					className="question_button--save"
-					onClick={onSaveClick}
-				/>
-
 				<div className="input-group">
-					<label children="Type" />
+					<label>Type</label>
 					<Dropdown
 						options={["Multiple Choice", "True/False"]}
 						onChange={e => setQuestion({ ...question, type: e.currentTarget.value })}
@@ -100,7 +91,7 @@ const QuestionPanel = (props: Props) => {
 				</div>
 
 				<div className="input-group">
-					<label children="Tags" />
+					<label>Tags</label>
 					<div className="input-section">
 						<input
 							className="tag_input"
@@ -128,6 +119,21 @@ const QuestionPanel = (props: Props) => {
 						</span>
 					))}
 				</div>
+				<button type="button" className="question_button--save" onClick={onSaveClick}>
+					Save
+				</button>
+
+				{onDeleteClick ? (
+					<button
+						type="button"
+						className="question_button--delete"
+						onClick={onDeleteClick}
+					>
+						Delete
+					</button>
+				) : (
+					<></>
+				)}
 			</form>
 		</>
 	);
