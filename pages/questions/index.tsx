@@ -38,7 +38,8 @@ function Search() {
 				setQuestions(data.data.data);
 			},
 			onError: async error => {
-				console.log(error.response.data.error.message.name);
+				// console.log(error.response.data.error.message.name);
+				console.log(error);
 				router.push("/login");
 			},
 			onTokenExpired: () => refreshToken()

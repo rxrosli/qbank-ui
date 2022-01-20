@@ -62,7 +62,7 @@ const QuestionPanel = (props: Props) => {
 				/>
 				{props.question.options.map((option, index) => (
 					<OptionField
-						key={option.value}
+						key={index}
 						option={option}
 						onToggleClick={() => toggleOption(option)}
 						onValueChange={e => changeValue(option, e.currentTarget.value)}

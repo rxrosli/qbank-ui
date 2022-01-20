@@ -34,7 +34,7 @@ export default function CreateQuestion() {
 		const events: FetchApiEvents = {
 			onSuccess: async data => {
 				console.log(data.data.data._id);
-				router.push("/questions/" + data.data.data._id);
+				router.push("/questions/update?id=" + data.data.data._id);
 				return;
 			},
 			onError: async error => {

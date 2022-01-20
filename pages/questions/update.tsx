@@ -35,7 +35,9 @@ export default function UpdateQuestion() {
 				return;
 			},
 			onError: async error => {
-				console.log(error.response.data.error.message);
+				console.log(question);
+				console.log(id);
+				console.log(error);
 			},
 			onTokenExpired: () => refreshToken()
 		};

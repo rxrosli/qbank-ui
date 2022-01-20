@@ -1,21 +1,19 @@
 import axios from "axios";
+import { Helmet } from "react-helmet";
 import { useRouter } from "next/dist/client/router";
 import { FormEvent, useEffect, useState } from "react";
 import { UserInput } from "../models/User";
+import {
+	authenticated,
+	fetchApi,
+	FetchApiEvents,
+	FetchApiParams
+} from "../services/fetch";
 
 export default function Login() {
 	const router = useRouter();
 	const [userInput, setUserInput] = useState<UserInput>({ username: "", password: "" });
 	const [authFailed, setAuthFailed] = useState(false);
-
-	const auth = axios.create({
-		baseURL: process.env.NEXT_PUBLIC_API_URL,
-		timeout: parseInt(process.env.NEXT_PUBLIC_TIMEOUT || "10000"),
-		headers: {
-			"Content-Type": "application/json",
-			Accept: "application/json"
-		}
-	});
 
 	function handleUsernameChange(username: string) {
 		setUserInput({ ...userInput, username: username });
@@ -27,27 +25,28 @@ export default function Login() {
 
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-
-		await auth({
-			method: "POST",
-			url: "/auth",
-			data: userInput
-		})
-			.then(res => {
-				const data = res.data.data;
-				window.localStorage.setItem("token", data.accessToken);
-				window.localStorage.setItem("refreshToken", data.refreshToken);
-				router.push("/");
-			})
-			.catch(err => {
+		const apiParams: FetchApiParams = { uri: "/auth", method: "POST", body: userInput };
+		const events: FetchApiEvents = {
+			onSuccess: async data => {
+				window.localStorage.setItem("token", data.data.data.accessToken);
+				window.localStorage.setItem("refreshToken", data.data.data.refreshToken);
+				await router.push("/questions");
+				return;
+			},
+			onError: async error => {
 				setAuthFailed(true);
-				console.log(err);
-			});
+				console.log(error.response.data.error.message);
+			}
+		};
+		fetchApi(apiParams, events);
 	}
 
 	return (
 		<>
-			<body className="auth-body" />
+			<Helmet>
+				<body className="auth-body" />
+			</Helmet>
+
 			<form className="auth-container" onSubmit={handleSubmit}>
 				<h1 className="auth-form-header">Sign in to qBank</h1>
 				<div className="auth-form-body">

@@ -9,7 +9,7 @@ const Articles = (props: Props) => {
 	return (
 		<div>
 			{props.questions.map(question => (
-				<QuestionArticle question={question} />
+				<QuestionArticle key={question._id} question={question} />
 			))}
 		</div>
 	);

@@ -14,10 +14,14 @@ const Navigation = (props: Props) => {
 			<div className="top-flex">
 				<Icon type="chevron_duo_left" onClick={onCollapseClick} />
 				<Link href="/questions/create" passHref>
-					<Icon type="plus" />
+					<a>
+						<Icon type="plus" />
+					</a>
 				</Link>
-				<Link href="/questions/view" passHref>
-					<Icon type="search" />
+				<Link href="/questions" passHref>
+					<a>
+						<Icon type="search" />
+					</a>
 				</Link>
 			</div>
 			<div className="bottom-flex">
