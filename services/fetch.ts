@@ -18,10 +18,11 @@ export async function fetchApi(params: FetchApiParams, fetchApiEvents: FetchApiE
 	const { onLoad, onSuccess, onError, onTokenExpired } = fetchApiEvents;
 
 	try {
-		if (typeof onLoad === "function") await onLoad();
+		// if (typeof onLoad === "function") await onLoad();
 		const response = await axiosHandler(uri, method, body);
 		if (onSuccess) await onSuccess(response);
 	} catch (error) {
+		console.log(JSON.stringify(error));
 		if (error.response !== undefined) {
 			const message = error.response.data.error.message;
 			if (onTokenExpired && message.name === "TokenExpiredError") {
@@ -50,7 +51,8 @@ async function axiosHandler(uri: string, method: Method, body: object) {
 		url: uri,
 		method: method,
 		headers: {
-			Authorization: authorization
+			Authorization: authorization,
+			"Content-Type": "application/json"
 		},
 		data: body
 	});

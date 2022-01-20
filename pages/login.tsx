@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Helmet } from "react-helmet";
 import { useRouter } from "next/dist/client/router";
 import { FormEvent, useEffect, useState } from "react";
 import { UserInput } from "../models/User";
@@ -42,11 +41,7 @@ export default function Login() {
 	}
 
 	return (
-		<>
-			<Helmet>
-				<body className="auth-body" />
-			</Helmet>
-
+		<div className="auth-page">
 			<form className="auth-container" onSubmit={handleSubmit}>
 				<h1 className="auth-form-header">Sign in to qBank</h1>
 				<div className="auth-form-body">
@@ -68,10 +63,10 @@ export default function Login() {
 						Sign In
 					</button>
 				</div>
+				{authFailed ? (
+					<div className="auth-notif-failed">authentication failed.</div>
+				) : null}
 			</form>
-			{authFailed ? (
-				<div className="auth-notif-failed">authentication failed.</div>
-			) : null}
-		</>
+		</div>
 	);
 }

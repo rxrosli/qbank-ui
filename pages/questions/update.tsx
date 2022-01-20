@@ -35,14 +35,28 @@ export default function UpdateQuestion() {
 				return;
 			},
 			onError: async error => {
-				console.log(question);
-				console.log(id);
+				console.log(JSON.stringify(error, null, 2));
 				console.log(error);
 			},
 			onTokenExpired: () => refreshToken()
 		};
 		await fetchApi(apiParams, events);
 	}
+
+	const apiParams: FetchApiParams = {
+		uri: `/questions/${id}`,
+		method: "GET",
+		body: {}
+	};
+	const events: FetchApiEvents = {
+		onSuccess: async data => {
+			setQuestion(data.data.data);
+		},
+		onError: async error => {
+			console.log(error.response?.data?.error?.message);
+		},
+		onTokenExpired: () => refreshToken()
+	};
 
 	useEffect(() => {
 		if (!authenticated()) {
@@ -52,20 +66,6 @@ export default function UpdateQuestion() {
 		if (!id) {
 			return;
 		}
-		const apiParams: FetchApiParams = {
-			uri: `/questions/${id}`,
-			method: "GET",
-			body: {}
-		};
-		const events: FetchApiEvents = {
-			onSuccess: async data => {
-				setQuestion(data.data.data);
-			},
-			onError: async error => {
-				console.log(error.response.data.error.message);
-			},
-			onTokenExpired: () => refreshToken()
-		};
 		fetchApi(apiParams, events);
 	}, [id]);
 
@@ -80,7 +80,7 @@ export default function UpdateQuestion() {
 			</div>
 
 			<Header
-				heading={getQuestionHeading(question)}
+				heading={`Question / ${question._id}`}
 				onMenuClick={() => setNavActive(true)}
 			/>
 			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />

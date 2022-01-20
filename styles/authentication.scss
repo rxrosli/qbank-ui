@@ -1,9 +1,17 @@
 .auth-body {
 	background: $polar0;
 }
+.auth-page {
+	background: $polar0;
+	height: 100%;
+	padding: 3rem;
+	display: flex;
+	justify-content: center;
+}
 .auth-container {
 	width: 30%;
 	margin: 0 auto;
+	background: $polar0;
 	// outline: dashed 1px $snow2;
 	// background: $polar3;
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import IQuestion from "../models/IQuestion";
 import IOption from "../models/IOptions";
+import Link from "next/link";
 
 type Props = {
 	question: IQuestion;
@@ -22,7 +23,9 @@ const QuestionArticle = (props: Props) => {
 						{question.options.filter(option => option.condition === false).length}
 					</div>
 				</section>
-				<section className="content-section">{question.stem}</section>
+				<Link href={`/questions/update?id=${question._id}`} passHref>
+					<a className="content-section">{question.stem}</a>
+				</Link>
 				<section className="tag-section">
 					{question.tags.map((tag, index) => {
 						return (

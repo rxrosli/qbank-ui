@@ -1,11 +1,18 @@
+#__next {
+	height: 100%;
+}
+
 html {
 	// font-smoothing: antialiased;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	font-family: Helvetica, sans-serif;
+	height: 100%;
 }
 body {
 	background: $snow2;
+	margin: 0;
+	height: 100%;
 }
 legend {
 	padding: 0;
