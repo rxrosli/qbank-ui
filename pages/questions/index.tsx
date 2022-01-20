@@ -11,14 +11,14 @@ import {
 	FetchApiParams,
 	refreshToken
 } from "../../services/fetch";
-import router from "next/dist/client/router";
+import Router from "next/router";
 
 type SearchQuery = {
 	target: string;
 	query: string;
 };
 
-function Search() {
+function Questions() {
 	const [isActive, setActive] = useState<boolean>(false);
 	const searchOptions = ["tag", "question", "id"];
 	const [questions, setQuestions] = useState<IQuestion[]>([]);
@@ -29,7 +29,7 @@ function Search() {
 
 	useEffect(() => {
 		if (!authenticated()) {
-			router.push("/login");
+			Router.push("/login");
 			return;
 		}
 		const apiParams: FetchApiParams = { uri: "/questions", method: "GET", body: {} };
@@ -40,7 +40,7 @@ function Search() {
 			onError: async error => {
 				// console.log(error.response.data.error.message.name);
 				console.log(error);
-				router.push("/login");
+				Router.push("/login");
 			},
 			onTokenExpired: () => refreshToken()
 		};
@@ -52,14 +52,14 @@ function Search() {
 				<div className="question-search">
 					{/* TODO: add dropdown icon later */}
 					{/* <Icon type="caret_down" /> */}
-					<Dropdown
+					{/* <Dropdown
 						options={searchOptions}
 						onChange={e =>
 							setSearchQuery({ ...searchQuery, target: e.currentTarget.value })
 						}
 					/>
 					<input />
-					<button />
+					<button /> */}
 				</div>
 				<Articles questions={questions} />
 			</div>
@@ -69,4 +69,4 @@ function Search() {
 	);
 }
 
-export default Search;
+export default Questions;

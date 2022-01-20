@@ -23,7 +23,7 @@ const QuestionArticle = (props: Props) => {
 						{question.options.filter(option => option.condition === false).length}
 					</div>
 				</section>
-				<Link href={`/questions/update?id=${question._id}`} passHref>
+				<Link href={`/question?id=${question._id}`} passHref>
 					<a className="content-section">{question.stem}</a>
 				</Link>
 				<section className="tag-section">

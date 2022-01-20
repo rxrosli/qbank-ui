@@ -12,11 +12,7 @@ import {
 	refreshToken
 } from "../../services/fetch";
 
-function getQuestionHeading(question: IQuestion): string {
-	return `Question / ${question._id}`;
-}
-
-export default function UpdateQuestion() {
+export default function Question() {
 	const router = useRouter();
 	const { id } = router.query;
 	const [isNavActive, setNavActive] = useState(false);
