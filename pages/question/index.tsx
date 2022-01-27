@@ -54,25 +54,24 @@ export default function Question() {
 		Router.push("/questions");
 	}
 
-	function handleOnLoad() {
-		const apiParams: FetchApiParams = {
-			uri: `/questions/${id}`,
-			method: "GET",
-			body: {}
-		};
-		const events: FetchApiEvents = {
-			onSuccess: async data => {
-				setQuestion(data.data.data);
-			},
-			onError: async error => {
-				console.log(error.response?.data?.error?.message);
-			},
-			onTokenExpired: () => refreshToken()
-		};
-		fetchApi(apiParams, events);
-	}
-
 	useEffect(() => {
+		function handleOnLoad() {
+			const apiParams: FetchApiParams = {
+				uri: `/questions/${id}`,
+				method: "GET",
+				body: {}
+			};
+			const events: FetchApiEvents = {
+				onSuccess: async data => {
+					setQuestion(data.data.data);
+				},
+				onError: async error => {
+					console.log(error.response?.data?.error?.message);
+				},
+				onTokenExpired: () => refreshToken()
+			};
+			fetchApi(apiParams, events);
+		}
 		if (!authenticated()) {
 			Router.push("/login");
 			return;

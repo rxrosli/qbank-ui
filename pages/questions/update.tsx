@@ -39,22 +39,21 @@ export default function UpdateQuestion() {
 		await fetchApi(apiParams, events);
 	}
 
-	const apiParams: FetchApiParams = {
-		uri: `/questions/${id}`,
-		method: "GET",
-		body: {}
-	};
-	const events: FetchApiEvents = {
-		onSuccess: async data => {
-			setQuestion(data.data.data);
-		},
-		onError: async error => {
-			console.log(error.response?.data?.error?.message);
-		},
-		onTokenExpired: () => refreshToken()
-	};
-
 	useEffect(() => {
+		const apiParams: FetchApiParams = {
+			uri: `/questions/${id}`,
+			method: "GET",
+			body: {}
+		};
+		const events: FetchApiEvents = {
+			onSuccess: async data => {
+				setQuestion(data.data.data);
+			},
+			onError: async error => {
+				console.log(error.response?.data?.error?.message);
+			},
+			onTokenExpired: () => refreshToken()
+		};
 		if (!authenticated()) {
 			Router.push("/login");
 			return;
