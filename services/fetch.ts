@@ -18,7 +18,7 @@ export async function fetchApi(params: FetchApiParams, fetchApiEvents: FetchApiE
 	const { onLoad, onSuccess, onError, onTokenExpired } = fetchApiEvents;
 
 	try {
-		// if (typeof onLoad === "function") await onLoad();
+		if (typeof onLoad === "function") await onLoad();
 		const response = await axiosHandler(uri, method, body);
 		if (onSuccess) await onSuccess(response);
 	} catch (error) {
