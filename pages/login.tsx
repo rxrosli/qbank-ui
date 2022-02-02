@@ -1,13 +1,7 @@
-import axios from "axios";
 import { useRouter } from "next/dist/client/router";
 import { FormEvent, useEffect, useState } from "react";
 import { UserInput } from "../models/User";
-import {
-	authenticated,
-	fetchApi,
-	FetchApiEvents,
-	FetchApiParams
-} from "../services/fetch";
+import { fetchApi, FetchApiEvents, FetchApiParams } from "../services/fetch";
 
 export default function Login() {
 	const router = useRouter();

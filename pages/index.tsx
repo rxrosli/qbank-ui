@@ -1,36 +1,15 @@
-import Router from "next/router";
-import { useEffect, useState } from "react";
-import {
-	fetchApi,
-	FetchApiEvents,
-	FetchApiParams,
-	authenticated,
-	refreshToken
-} from "../services/fetch";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { authenticated } from "../services/fetch";
 
 export default function Home() {
-	const [data, setData] = useState({});
-
-	async function onLogin() {
+	const router = useRouter();
+	useEffect(() => {
 		if (!authenticated()) {
-			await Router.push("/login");
+			router.push("/login");
 			return;
 		}
-		const apiParams: FetchApiParams = { uri: "/", method: "GET", body: {} };
-		const events: FetchApiEvents = {
-			onSuccess: async data => setData(data.data.data),
-			onError: async error => {
-				console.log(error.response.data.error.message.name);
-				Router.push("/login");
-			},
-			onTokenExpired: () => refreshToken()
-		};
-		fetchApi(apiParams, events);
-	}
-
-	useEffect(() => {
-		onLogin();
+		router.push("/questions");
 	}, []);
-
-	return <>{JSON.stringify(data)}</>;
+	return null;
 }
