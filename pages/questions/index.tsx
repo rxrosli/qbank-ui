@@ -1,6 +1,6 @@
 import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
-import QuestionArticles from "../../container/QuestionArticles";
+import Articles from "../../container/question/Articles";
 import Dropdown from "../../components/Dropdown";
 import IQuestion from "../../models/IQuestion";
 import React, { useEffect, useState } from "react";
@@ -61,7 +61,7 @@ export default function Questions() {
 					<input />
 					<button /> */}
 				</div>
-				<QuestionArticles questions={questions} />
+				<Articles questions={questions} />
 			</div>
 			<Header heading="Questions" onMenuClick={() => setActive(true)} />
 			<Navigation isActive={isActive} onCollapseClick={() => setActive(false)} />

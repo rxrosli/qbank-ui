@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import IQuestion from "../models/IQuestion";
-import QuestionArticle from "../components/QuestionArticle";
+import IQuestion from "../../models/IQuestion";
+import QuestionArticle from "../../components/QuestionArticle";
 
 type Props = {
 	questions: IQuestion[];
 };
-const QuestionArticles = (props: Props) => {
+const Articles = (props: Props) => {
 	return (
 		<div>
 			{props.questions.map(question => (
@@ -14,4 +14,4 @@ const QuestionArticles = (props: Props) => {
 		</div>
 	);
 };
-export default QuestionArticles;
+export default Articles;

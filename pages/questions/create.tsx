@@ -1,6 +1,6 @@
 import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
-import QuestionPanel from "../../container/QuestionPanel";
+import Panel from "../../container/question/Panel";
 import React, { useEffect, useState } from "react";
 import IQuestion from "../../models/IQuestion";
 import {
@@ -56,7 +56,7 @@ export default function CreateQuestion() {
 		<div>
 			<div className="page row">
 				{/* TODO add empty fields validation */}
-				<QuestionPanel
+				<Panel
 					question={question}
 					setQuestion={setQuestion}
 					onSaveClick={() => pushQuestion(question)}

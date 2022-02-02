@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import IQuestion from "../models/IQuestion";
-import IOption from "../models/IOptions";
+import IQuestion from "../../models/IQuestion";
+import IOption from "../../models/IOptions";
 import TextareaAutosize from "react-textarea-autosize";
-import OptionField from "../components/OptionField";
-import Icon from "../components/Icon";
-import Dropdown from "../components/Dropdown";
+import OptionField from "../../components/OptionField";
+import Icon from "../../components/Icon";
+import Dropdown from "../../components/Dropdown";
 
 type Props = {
 	question: IQuestion;
@@ -12,7 +12,7 @@ type Props = {
 	onSaveClick: React.MouseEventHandler<HTMLButtonElement>;
 	onDeleteClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
-const QuestionPanel = (props: Props) => {
+const Panel = (props: Props) => {
 	const { question, setQuestion, onSaveClick, onDeleteClick } = props;
 	const [tag, setTag] = useState<string>("");
 
@@ -139,4 +139,4 @@ const QuestionPanel = (props: Props) => {
 	);
 };
 
-export default QuestionPanel;
+export default Panel;

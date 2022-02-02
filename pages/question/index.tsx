@@ -2,7 +2,7 @@ import Router, { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
-import QuestionPanel from "../../container/QuestionPanel";
+import Panel from "../../container/question/Panel";
 import IQuestion from "../../models/IQuestion";
 import {
 	authenticated,
@@ -85,7 +85,7 @@ export default function Question() {
 	return question ? (
 		<div>
 			<div className="page row">
-				<QuestionPanel
+				<Panel
 					question={question}
 					setQuestion={setQuestion}
 					onSaveClick={() => handleOnSaveClick(question)}
