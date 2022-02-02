@@ -5,7 +5,7 @@ import QuestionArticle from "../components/QuestionArticle";
 type Props = {
 	questions: IQuestion[];
 };
-const Articles = (props: Props) => {
+const QuestionArticles = (props: Props) => {
 	return (
 		<div>
 			{props.questions.map(question => (
@@ -14,4 +14,4 @@ const Articles = (props: Props) => {
 		</div>
 	);
 };
-export default Articles;
+export default QuestionArticles;
