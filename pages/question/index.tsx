@@ -89,7 +89,7 @@ export default function Question() {
 					question={question}
 					setQuestion={setQuestion}
 					onSaveClick={() => handleOnSaveClick(question)}
-					onDeleteClick={() => handleOnDeleteClick(question)}
+					onDeleteClick={() => handleOnDeleteClick()}
 				/>
 			</div>
 			<Header

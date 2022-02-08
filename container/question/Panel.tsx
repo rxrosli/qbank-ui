@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import IQuestion from "../../models/IQuestion";
 import IOption from "../../models/IOptions";
 import TextareaAutosize from "react-textarea-autosize";
-import OptionField from "../../components/OptionField";
+import OptionField from "../../components/question/OptionField";
 import Icon from "../../components/Icon";
 import Dropdown from "../../components/Dropdown";
 
