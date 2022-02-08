@@ -1,13 +1,12 @@
 import React from "react";
-import IQuestion from "../models/IQuestion";
-import IOption from "../models/IOptions";
+import IQuestion from "../../models/IQuestion";
 import Link from "next/link";
 
 type Props = {
 	question: IQuestion;
 };
 
-const QuestionArticle = (props: Props) => {
+const Article = (props: Props) => {
 	const { question } = props;
 
 	return (
@@ -41,4 +40,4 @@ const QuestionArticle = (props: Props) => {
 	);
 };
 
-export default QuestionArticle;
+export default Article;

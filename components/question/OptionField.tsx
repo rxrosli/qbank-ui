@@ -1,8 +1,8 @@
 import React from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import Icon from "./Icon";
-import Toggle from "./Toggle";
-import IOptions from "../models/IOptions";
+import Icon from "../Icon";
+import Toggle from "../Toggle";
+import IOptions from "../../models/IOptions";
 
 type Props = {
 	option: IOptions;

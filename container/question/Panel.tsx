@@ -131,9 +131,7 @@ const Panel = (props: Props) => {
 					>
 						Delete
 					</button>
-				) : (
-					<></>
-				)}
+				) : null}
 			</form>
 		</>
 	);

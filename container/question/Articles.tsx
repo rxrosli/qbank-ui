@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import IQuestion from "../../models/IQuestion";
-import QuestionArticle from "../../components/QuestionArticle";
+import Article from "../../components/question/Article";
 
 type Props = {
 	questions: IQuestion[];
@@ -9,7 +9,7 @@ const Articles = (props: Props) => {
 	return (
 		<div>
 			{props.questions.map(question => (
-				<QuestionArticle key={question._id} question={question} />
+				<Article key={question._id} question={question} />
 			))}
 		</div>
 	);

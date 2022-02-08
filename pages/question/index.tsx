@@ -37,7 +37,7 @@ export default function Question() {
 		await fetchApi(apiParams, events);
 	}
 
-	async function handleOnDeleteClick(question: IQuestion) {
+	async function handleOnDeleteClick() {
 		const apiParams: FetchApiParams = {
 			uri: "/questions/" + id,
 			method: "DELETE",
@@ -92,7 +92,6 @@ export default function Question() {
 					onDeleteClick={() => handleOnDeleteClick(question)}
 				/>
 			</div>
-
 			<Header
 				heading={`Question / ${question._id}`}
 				onMenuClick={() => setNavActive(true)}
