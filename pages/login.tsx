@@ -21,6 +21,7 @@ export default function Login() {
 		const apiParams: FetchApiParams = { uri: "/auth", method: "POST", body: userInput };
 		const events: FetchApiEvents = {
 			onSuccess: async data => {
+				window.localStorage.setItem("username", userInput.username);
 				window.localStorage.setItem("token", data.data.data.accessToken);
 				window.localStorage.setItem("refreshToken", data.data.data.refreshToken);
 				await router.push("/questions");
