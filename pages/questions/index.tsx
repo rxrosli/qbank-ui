@@ -48,11 +48,11 @@ export default function Questions() {
 	}, []);
 	return (
 		<div>
-			<div className="page column">
-				<div className="question-search">
-					{/* TODO: add dropdown icon later */}
-					{/* <Icon type="caret_down" /> */}
-					{/* <Dropdown
+			<div className="page">
+				{/* <div className="question-search"> */}
+				{/* TODO: add dropdown icon later */}
+				{/* <Icon type="caret_down" /> */}
+				{/* <Dropdown
 						options={searchOptions}
 						onChange={e =>
 							setSearchQuery({ ...searchQuery, target: e.currentTarget.value })
@@ -60,8 +60,10 @@ export default function Questions() {
 					/>
 					<input />
 					<button /> */}
-				</div>
-				<Articles questions={questions} />
+				{/* </div> */}
+				<section className="section section--column">
+					<Articles questions={questions} />
+				</section>
 			</div>
 			<Header heading="Questions" onMenuClick={() => setActive(true)} />
 			<Navigation isActive={isActive} onCollapseClick={() => setActive(false)} />

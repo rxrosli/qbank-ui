@@ -84,7 +84,7 @@ export default function Question() {
 
 	return question ? (
 		<div>
-			<div className="page row">
+			<div className="page page--row">
 				<Panel
 					question={question}
 					setQuestion={setQuestion}

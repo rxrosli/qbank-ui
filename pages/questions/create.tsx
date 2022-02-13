@@ -54,7 +54,7 @@ export default function CreateQuestion() {
 
 	return (
 		<div>
-			<div className="page row">
+			<div className="page page--row">
 				{/* TODO add empty fields validation */}
 				<Panel
 					question={question}

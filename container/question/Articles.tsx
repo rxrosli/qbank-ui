@@ -7,11 +7,11 @@ type Props = {
 };
 const Articles = (props: Props) => {
 	return (
-		<div>
+		<>
 			{props.questions.map(question => (
 				<Article key={question._id} question={question} />
 			))}
-		</div>
+		</>
 	);
 };
 export default Articles;

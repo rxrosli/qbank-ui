@@ -1,17 +1,14 @@
 .page {
 	width: 60%;
 	margin: 5rem auto;
-
 	position: static;
 
 	display: flex;
+	align-items: flex-start;
+	flex-direction: column;
 
-	&.row {
+	&--row {
 		flex-direction: row;
 		align-items: flex-start;
-	}
-
-	&.column {
-		flex-direction: column;
 	}
 }

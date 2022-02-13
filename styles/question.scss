@@ -1,0 +1,91 @@
+.question {
+	&__id {
+		color: $polar3;
+		font-size: 0.9rem;
+		align-self: center;
+		flex: 1;
+	}
+	&__type {
+		color: $polar3;
+		font-size: 0.9rem;
+		margin: 0px 10px;
+		align-self: center;
+	}
+	&__stem {
+		color: $polar3;
+		font-size: 1.4rem;
+		word-wrap: break-word;
+		padding: 5px 0;
+	}
+	&__options {
+		color: white;
+		font-size: 0.9rem;
+		$option-radius: 0.625rem;
+		align-self: center;
+		padding: 0.125rem 0.375rem;
+		&--true {
+			background: $aurora0;
+			border-radius: $option-radius 0 0 $option-radius;
+		}
+		&--false {
+			background: $aurora3;
+			border-radius: 0 $option-radius $option-radius 0;
+		}
+	}
+	&__caret {
+		width: 3rem;
+		color: $polar3;
+		background: white;
+		align-self: stretch;
+
+		display: flex;
+		align-items: center;
+
+		svg {
+			transition: transform 1s ease;
+		}
+
+		&--rotate {
+			svg {
+				transform: rotate(90deg);
+			}
+		}
+	}
+	&__delete {
+		width: 1.8rem;
+		color: $aurora0;
+		align-self: center;
+		margin-left: 1rem;
+	}
+	&__tag {
+		color: $polar3;
+		font-size: 0.9rem;
+		padding: 5px;
+		margin: 2px;
+		border-radius: 5px;
+		background: $snow0;
+	}
+}
+
+.option {
+	&__value {
+		font-size: 1rem;
+		color: $polar3;
+	}
+	&__condition {
+		width: 1.5rem;
+		margin: 0 0.8rem;
+
+		align-self: stretch;
+
+		display: flex;
+		align-items: center;
+
+		&--true {
+			color: $aurora3;
+		}
+		&--false {
+			color: $aurora0;
+		}
+	}
+}

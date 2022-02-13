@@ -58,10 +58,10 @@ const Panel = (props: Props) => {
 			<form className="question-panel">
 				<TextareaAutosize
 					placeholder="Type your question"
-					value={props.question.stem}
+					value={question.stem}
 					onChange={e => setQuestion({ ...question, stem: e.currentTarget.value })}
 				/>
-				{props.question.options.map((option, index) => (
+				{question.options.map((option, index) => (
 					<OptionField
 						key={index}
 						option={option}

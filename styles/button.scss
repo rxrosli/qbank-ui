@@ -1,0 +1,27 @@
+.button {
+	font-size: 1rem;
+	font-weight: bold;
+	padding: 0.5rem 1.5rem;
+	border-radius: 0.3rem;
+
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+
+	&__icon {
+		width: 2rem;
+	}
+	&--primary {
+		background: $aurora3;
+		color: white;
+	}
+	&--secondary {
+		background: $aurora0;
+		color: white;
+	}
+	&--tertiary {
+		border-radius: 1.5rem;
+		background: $snow0;
+		color: $polar3;
+	}
+}

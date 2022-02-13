@@ -10,25 +10,27 @@ const Article = (props: Props) => {
 	const { question } = props;
 
 	return (
-		<article className="question-article">
-			<div className="container">
-				<section className="header-section">
-					<div className="id">{question._id}</div>
-					<div className="type">{question.type}</div>
-					<div className="option-count true">
+		<article className="article">
+			<div className="container container--s-padding">
+				<section className="section">
+					<div className="question__id">{question._id}</div>
+					<div className="question__type">{question.type}</div>
+					<div className="question__options question__options--true">
 						{question.options.filter(option => option.condition === true).length}
 					</div>
-					<div className="option-count false">
+					<div className="question__options question__options--false">
 						{question.options.filter(option => option.condition === false).length}
 					</div>
 				</section>
-				<Link href={`/question?id=${question._id}`} passHref>
-					<a className="content-section">{question.stem}</a>
-				</Link>
-				<section className="tag-section">
+				<section className="section">
+					<Link href={`/question?id=${question._id}`} passHref>
+						<a className="question__stem">{question.stem}</a>
+					</Link>
+				</section>
+				<section className="section section--wrap">
 					{question.tags.map((tag, index) => {
 						return (
-							<span key={index} className="tag">
+							<span key={index} className="question__tag">
 								{tag}
 							</span>
 						);
