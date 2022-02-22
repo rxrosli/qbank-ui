@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import axios, { Method } from "axios";
+import axios, { AxiosResponse, Method } from "axios";
 import Router from "next/router";
 
 export type FetchApiBody = { [key: string]: any };
@@ -10,23 +10,25 @@ export type FetchApiParams = {
 };
 export type FetchApiEvents = {
 	onLoad?: () => Promise<void>;
-	onSuccess?: (data: any) => Promise<void>;
+	onSuccess?: (data: AxiosResponse<any, any>) => Promise<void>;
 	onError?: (error: any) => Promise<void>;
 	onTokenExpired?: () => Promise<void>;
 };
-export async function fetchApi(params: FetchApiParams, fetchApiEvents: FetchApiEvents) {
+export async function fetchApi(params: FetchApiParams, events: FetchApiEvents) {
 	const { uri, method, body = {} } = params;
 	const {
 		onLoad = async () => {},
 		onSuccess = async () => {},
-		onError = async () => {},
+		onError = async error => {
+			console.log(JSON.stringify(error, null, 2));
+		},
 		onTokenExpired = refreshToken
-	} = fetchApiEvents;
+	} = events;
 	const onSuccessHandler = async () => {
 		await onSuccess(await axiosHandler(uri, method, body));
 	};
 	try {
-		await onLoad();
+		if (onLoad) await onLoad();
 		await onSuccessHandler();
 	} catch (error) {
 		if (
@@ -79,12 +81,9 @@ export async function refreshToken() {
 			console.log(err);
 		});
 }
-export function onPageLoad(onSuccess: () => void) {
-	useEffect(() => {
-		if (!authenticated()) {
-			Router.push("/login");
-			return;
-		}
-		onSuccess();
-	});
+export function authenticatePageRequest() {
+	if (!authenticated()) {
+		Router.push("/login");
+		return;
+	}
 }
