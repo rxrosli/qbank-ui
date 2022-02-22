@@ -24,7 +24,7 @@ const Panel = (props: Props) => {
 			)
 		});
 	}
-	function changeValue(option: IOption, value: string) {
+	function changeOptionValue(option: IOption, value: string) {
 		setQuestion({
 			...question,
 			options: question.options.map(prevOpt =>
@@ -66,7 +66,7 @@ const Panel = (props: Props) => {
 						key={index}
 						option={option}
 						onToggleClick={() => toggleOption(option)}
-						onValueChange={e => changeValue(option, e.currentTarget.value)}
+						onValueChange={e => changeOptionValue(option, e.currentTarget.value)}
 						onDeleteClick={() => deleteOption(option)}
 						onKeyPress={e => {
 							if (e.code === "Enter") {
