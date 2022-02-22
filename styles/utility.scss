@@ -12,6 +12,7 @@
 	position: fixed;
 	height: 25rem;
 	width: 50%;
+	min-width: 42rem;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -39,6 +40,13 @@
 		overflow-y: auto;
 		margin: 0 1rem;
 	}
+	&__input {
+		color: $polar3;
+		border: 1px solid $snow1;
+		margin-bottom: 1rem;
+	}
+	// &__textarea {
+	// }
 	&__backdrop {
 		display: none;
 		position: fixed;
@@ -50,6 +58,12 @@
 		&--active {
 			display: block;
 		}
+	}
+	&--width-xs {
+		width: 25%;
+	}
+	&--width-s {
+		width: 35%;
 	}
 }
 .sub-article {
@@ -83,6 +97,7 @@
 		margin: 0.5rem 0;
 	}
 	&--column {
+		height: 100%;
 		flex-direction: column;
 	}
 	&--wrap {
@@ -109,9 +124,17 @@
 		padding: 25px;
 	}
 }
-.collapsible {
-	height: 100%;
-	background: white;
+.accordion {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	max-height: 0;
+	width: 100%;
+	transition: max-height 0.5s ease;
+
+	&--active {
+		max-height: 80rem;
+	}
 }
 .tab {
 	flex: 0 0 10px;

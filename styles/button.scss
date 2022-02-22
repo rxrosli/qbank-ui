@@ -24,4 +24,9 @@
 		background: $snow0;
 		color: $polar3;
 	}
+
+	&--align-end {
+		margin-top: auto;
+		align-self: end;
+	}
 }

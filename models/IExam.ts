@@ -7,4 +7,5 @@ export default interface IExam {
 	author: string;
 	settings: { [key: string]: string };
 	questions: IQuestion[];
+	updatedAt: string;
 }
