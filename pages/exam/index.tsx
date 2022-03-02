@@ -75,7 +75,7 @@ export default function Exam() {
 	};
 	async function fetchQuestions() {
 		await fetchApi(
-			{ uri: "/questions", method: "GET" },
+			{ uri: "/questions/query", method: "POST" },
 			{ ...events, onSuccess: async (data: any) => setQuestions(data.data.data) }
 		);
 	}

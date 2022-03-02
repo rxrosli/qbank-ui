@@ -39,7 +39,7 @@ const Exams = () => {
 	useEffect(() => {
 		if (!router.isReady) return;
 		authenticatePageRequest();
-		fetchApi({ uri: "/exams", method: "GET" }, events);
+		fetchApi({ uri: "/exams/query", method: "POST" }, events);
 	}, []);
 
 	return (

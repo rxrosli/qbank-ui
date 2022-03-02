@@ -32,7 +32,11 @@ export default function Questions() {
 			Router.push("/login");
 			return;
 		}
-		const apiParams: FetchApiParams = { uri: "/questions", method: "GET", body: {} };
+		const apiParams: FetchApiParams = {
+			uri: "/questions/query",
+			method: "POST",
+			body: {}
+		};
 		const events: FetchApiEvents = {
 			onSuccess: async data => {
 				setQuestions(data.data.data);

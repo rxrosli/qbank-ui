@@ -31,11 +31,10 @@ export async function fetchApi(params: FetchApiParams, events: FetchApiEvents) {
 		if (onLoad) await onLoad();
 		await onSuccessHandler();
 	} catch (error) {
-		if (
-			error.response === undefined ||
-			error.response.data.error.message.name !== "TokenExpiredError"
-		)
-			await onError(error);
+		console.log(error);
+		error.response.data.errors.forEach(async (error: any) => {
+			if (error === undefined || error.name !== "TokenExpiredError") await onError(error);
+		});
 		try {
 			await onTokenExpired();
 			await onSuccessHandler();
