@@ -4,7 +4,7 @@ import Article from "../../components/exam/Article";
 import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
 import IExam from "../../models/IExam";
-import { authenticatePageRequest, fetchApi, FetchApiEvents } from "../../services/fetch";
+import { authenticatePageRequest, fetchApi, FetchApiEvents } from "../../utility/fetch";
 
 type State = {
 	exams: IExam[];

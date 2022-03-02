@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import axios, { AxiosResponse, Method } from "axios";
 import Router from "next/router";
 
-export type FetchApiBody = { [key: string]: any };
+export type HttpMethods = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+export type FetchApiBody = { [index: string]: any };
 export type FetchApiParams = {
 	uri: string;
-	method: "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
+	method: HttpMethods;
 	body?: FetchApiBody;
 };
 export type FetchApiEvents = {
@@ -16,6 +17,7 @@ export type FetchApiEvents = {
 };
 export async function fetchApi(params: FetchApiParams, events: FetchApiEvents) {
 	const { uri, method, body = {} } = params;
+
 	const {
 		onLoad = async () => {},
 		onSuccess = async () => {},
@@ -24,15 +26,18 @@ export async function fetchApi(params: FetchApiParams, events: FetchApiEvents) {
 		},
 		onTokenExpired = refreshToken
 	} = events;
+
 	const onSuccessHandler = async () => {
 		await onSuccess(await axiosHandler(uri, method, body));
 	};
+
 	try {
 		if (onLoad) await onLoad();
 		await onSuccessHandler();
 	} catch (error) {
 		console.log(error);
-		error.response.data.errors.forEach(async (error: any) => {
+		const errors = error.response.data.errors;
+		errors.forEach(async (error: any) => {
 			if (error === undefined || error.name !== "TokenExpiredError") await onError(error);
 		});
 		try {

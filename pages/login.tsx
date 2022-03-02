@@ -1,7 +1,7 @@
 import { useRouter } from "next/dist/client/router";
 import { FormEvent, useEffect, useState } from "react";
 import { UserInput } from "../models/User";
-import { fetchApi, FetchApiEvents, FetchApiParams } from "../services/fetch";
+import { fetchApi, FetchApiEvents, FetchApiParams } from "../utility/fetch";
 
 export default function Login() {
 	const router = useRouter();

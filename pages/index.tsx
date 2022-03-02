@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import { useEffect } from "react";
-import { authenticated } from "../services/fetch";
+import { authenticated } from "../utility/fetch";
 
 export default function Home() {
 	const router = useRouter();

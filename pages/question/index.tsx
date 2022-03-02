@@ -10,7 +10,7 @@ import {
 	FetchApiEvents,
 	FetchApiParams,
 	refreshToken
-} from "../../services/fetch";
+} from "../../utility/fetch";
 
 export default function Question() {
 	const router = useRouter();

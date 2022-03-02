@@ -12,7 +12,7 @@ import {
 	fetchApi,
 	FetchApiEvents,
 	FetchApiParams
-} from "../../services/fetch";
+} from "../../utility/fetch";
 
 type State = {
 	navigation: boolean;

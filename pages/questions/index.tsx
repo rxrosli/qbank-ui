@@ -10,7 +10,7 @@ import {
 	FetchApiEvents,
 	FetchApiParams,
 	refreshToken
-} from "../../services/fetch";
+} from "../../utility/fetch";
 import Router from "next/router";
 
 type SearchQuery = {

@@ -9,7 +9,7 @@ import {
 	FetchApiEvents,
 	FetchApiParams,
 	refreshToken
-} from "../../services/fetch";
+} from "../../utility/fetch";
 import router from "next/dist/client/router";
 
 function getQuestionHeading(question: IQuestion): string {
