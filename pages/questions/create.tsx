@@ -3,13 +3,7 @@ import Navigation from "../../components/layout/Navigation";
 import Panel from "../../container/question/Panel";
 import React, { useEffect, useState } from "react";
 import IQuestion from "../../models/IQuestion";
-import {
-	authenticated,
-	fetchApi,
-	FetchApiEvents,
-	FetchApiParams,
-	refreshToken
-} from "../../utility/fetch";
+import { authenticated, fetchApi, FetchApiEvents, FetchApiParams, refreshToken } from "../../utilities/fetch";
 import router from "next/dist/client/router";
 
 function getQuestionHeading(question: IQuestion): string {
@@ -56,17 +50,10 @@ export default function CreateQuestion() {
 		<div>
 			<div className="page page--row">
 				{/* TODO add empty fields validation */}
-				<Panel
-					question={question}
-					setQuestion={setQuestion}
-					onSaveClick={() => pushQuestion(question)}
-				/>
+				<Panel question={question} setQuestion={setQuestion} onSaveClick={() => pushQuestion(question)} />
 			</div>
 
-			<Header
-				heading={getQuestionHeading(question)}
-				onMenuClick={() => setNavActive(true)}
-			/>
+			<Header heading={getQuestionHeading(question)} onMenuClick={() => setNavActive(true)} />
 			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
 		</div>
 	);

@@ -4,7 +4,7 @@ import Article from "../../components/exam/Article";
 import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
 import IExam from "../../models/IExam";
-import { authenticatePageRequest, fetchApi, FetchApiEvents } from "../../utility/fetch";
+import { authenticatePageRequest, fetchApi, FetchApiEvents } from "../../utilities/fetch";
 
 type State = {
 	exams: IExam[];
@@ -51,14 +51,8 @@ const Exams = () => {
 					))}
 				</section>
 			</div>
-			<Header
-				heading="Exams"
-				onMenuClick={() => dispatch({ type: "toggle-navigation" })}
-			/>
-			<Navigation
-				isActive={state.navigation}
-				onCollapseClick={() => dispatch({ type: "toggle-navigation" })}
-			/>
+			<Header heading="Exams" onMenuClick={() => dispatch({ type: "toggle-navigation" })} />
+			<Navigation isActive={state.navigation} onCollapseClick={() => dispatch({ type: "toggle-navigation" })} />
 		</>
 	);
 };

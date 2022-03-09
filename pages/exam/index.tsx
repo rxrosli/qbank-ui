@@ -7,12 +7,7 @@ import Panel from "../../container/exam/Panel";
 import SearchArticles from "../../container/exam/SearchArticles";
 import IExam from "../../models/IExam";
 import IQuestion from "../../models/IQuestion";
-import {
-	authenticatePageRequest,
-	fetchApi,
-	FetchApiEvents,
-	FetchApiParams
-} from "../../utility/fetch";
+import { authenticatePageRequest, fetchApi, FetchApiEvents, FetchApiParams } from "../../utilities/fetch";
 
 type State = {
 	navigation: boolean;
@@ -130,14 +125,8 @@ export default function Exam() {
 					onDeleteQuestionClick={deleteExamQuestion}
 				></Panel>
 			</div>
-			<Header
-				heading={`Exam / ${exam._id}`}
-				onMenuClick={() => dispatch({ type: "toggle-navigation" })}
-			/>
-			<Navigation
-				isActive={state.navigation}
-				onCollapseClick={() => dispatch({ type: "toggle-navigation" })}
-			/>
+			<Header heading={`Exam / ${exam._id}`} onMenuClick={() => dispatch({ type: "toggle-navigation" })} />
+			<Navigation isActive={state.navigation} onCollapseClick={() => dispatch({ type: "toggle-navigation" })} />
 			<Modal
 				title="Edit details"
 				isActive={state.editDetails}
@@ -156,20 +145,12 @@ export default function Exam() {
 						placeholder="Add an optional description"
 						onChange={e => setDetails({ ...details, description: e.currentTarget.value })}
 					></textarea>
-					<button
-						className="button button--primary button--align-end"
-						type="button"
-						onClick={() => saveDetails()}
-					>
+					<button className="button button--primary button--align-end" type="button" onClick={() => saveDetails()}>
 						SAVE
 					</button>
 				</div>
 			</Modal>
-			<Modal
-				title="Settings"
-				isActive={state.settings}
-				onCloseClick={() => dispatch({ type: "toggle-settings" })}
-			>
+			<Modal title="Settings" isActive={state.settings} onCloseClick={() => dispatch({ type: "toggle-settings" })}>
 				<div className="warn">Coming Soon</div>
 			</Modal>
 			<Modal
@@ -177,28 +158,17 @@ export default function Exam() {
 				isActive={state.addQuestion}
 				onCloseClick={() => dispatch({ type: "toggle-addQuestion" })}
 			>
-				{questions ? (
-					<SearchArticles questions={questions} onAddClick={addExamQuestion} />
-				) : null}
+				{questions ? <SearchArticles questions={questions} onAddClick={addExamQuestion} /> : null}
 			</Modal>
-			<Modal
-				isActive={state.warning}
-				onCloseClick={() => dispatch({ type: "toggle-warning" })}
-			>
+			<Modal isActive={state.warning} onCloseClick={() => dispatch({ type: "toggle-warning" })}>
 				<div className="warn">Coming Soon</div>
 			</Modal>
 		</>
 	) : (
 		<>
 			<div>loading...</div>
-			<Header
-				heading="Exam / ???"
-				onMenuClick={() => dispatch({ type: "toggle-navigation" })}
-			/>
-			<Navigation
-				isActive={state.navigation}
-				onCollapseClick={() => dispatch({ type: "toggle-navigation" })}
-			/>
+			<Header heading="Exam / ???" onMenuClick={() => dispatch({ type: "toggle-navigation" })} />
+			<Navigation isActive={state.navigation} onCollapseClick={() => dispatch({ type: "toggle-navigation" })} />
 		</>
 	);
 }

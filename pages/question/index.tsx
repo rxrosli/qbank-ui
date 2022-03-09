@@ -4,13 +4,7 @@ import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
 import Panel from "../../container/question/Panel";
 import IQuestion from "../../models/IQuestion";
-import {
-	authenticated,
-	fetchApi,
-	FetchApiEvents,
-	FetchApiParams,
-	refreshToken
-} from "../../utility/fetch";
+import { authenticated, fetchApi, FetchApiEvents, FetchApiParams, refreshToken } from "../../utilities/fetch";
 
 export default function Question() {
 	const router = useRouter();
@@ -92,10 +86,7 @@ export default function Question() {
 					onDeleteClick={() => handleOnDeleteClick()}
 				/>
 			</div>
-			<Header
-				heading={`Question / ${question._id}`}
-				onMenuClick={() => setNavActive(true)}
-			/>
+			<Header heading={`Question / ${question._id}`} onMenuClick={() => setNavActive(true)} />
 			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
 		</div>
 	) : (

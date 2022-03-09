@@ -1,7 +1,7 @@
 import { useRouter } from "next/dist/client/router";
 import { FormEvent, useEffect, useState } from "react";
 import { UserInput } from "../models/User";
-import { fetchApi, FetchApiEvents, FetchApiParams } from "../utility/fetch";
+import { fetchApi, FetchApiEvents, FetchApiParams } from "../utilities/fetch";
 
 export default function Login() {
 	const router = useRouter();
@@ -58,9 +58,7 @@ export default function Login() {
 						Sign In
 					</button>
 				</div>
-				{authFailed ? (
-					<div className="auth-notif-failed">authentication failed.</div>
-				) : null}
+				{authFailed ? <div className="auth-notif-failed">authentication failed.</div> : null}
 			</form>
 		</div>
 	);

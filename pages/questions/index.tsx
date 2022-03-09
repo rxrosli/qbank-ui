@@ -4,13 +4,7 @@ import Articles from "../../container/question/Articles";
 import Dropdown from "../../components/Dropdown";
 import IQuestion from "../../models/IQuestion";
 import React, { useEffect, useState } from "react";
-import {
-	authenticated,
-	fetchApi,
-	FetchApiEvents,
-	FetchApiParams,
-	refreshToken
-} from "../../utility/fetch";
+import { authenticated, fetchApi, FetchApiEvents, FetchApiParams, refreshToken } from "../../utilities/fetch";
 import Router from "next/router";
 
 type SearchQuery = {
