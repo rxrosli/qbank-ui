@@ -71,14 +71,17 @@ async function refreshToken() {
 		Authorization: "bearer " + window.localStorage.getItem("refreshToken"),
 		"Content-Type": "application/json"
 	};
+	let accessToken: string = "";
 	console.info("Refreshing token...");
 	axios(geteAxiosConfig("auth", "GET", {}, headers))
 		.then(res => {
 			window.localStorage.setItem("token", res.data.data.accessToken);
+			accessToken = res.data.data.accessToken as string;
 		})
 		.catch(err => {
 			console.log(err);
 		});
+	return accessToken;
 }
 
 export async function fetch(params: FetchParams) {
@@ -91,15 +94,21 @@ export async function fetch(params: FetchParams) {
 	} catch (error) {
 		if (error.response === undefined) throw error;
 		const errors = error.response.data.errors;
+		if (errors === undefined) throw error;
+		errors.forEach(async (error: any) => {
+			if (error === undefined || error.name !== "TokenExpiredError") throw error;
+		});
 		try {
-			if (errors === undefined) throw error;
-			errors.forEach(async (error: any) => {
-				if (error === undefined || error.name !== "TokenExpiredError") throw error;
-			});
-			await refreshToken();
-			return await axios(geteAxiosConfig(uri, method, body));
+			const token = await refreshToken();
+			console.log(token);
+			const headers = {
+				Authorization: "bearer " + token,
+				"Content-Type": "application/json"
+			};
+			return await axios(geteAxiosConfig(uri, method, body, headers));
 		} catch (error) {
 			onError(error);
+			return;
 		}
 	}
 }
