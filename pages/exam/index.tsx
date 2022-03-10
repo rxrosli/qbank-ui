@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useState } from "react";
+import Icon from "../../components/Icon";
 import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
 import Modal from "../../components/Modal";
@@ -7,134 +8,90 @@ import Panel from "../../container/exam/Panel";
 import SearchArticles from "../../container/exam/SearchArticles";
 import IExam from "../../models/IExam";
 import IQuestion from "../../models/IQuestion";
-import { authenticatePageRequest, fetchApi, FetchApiEvents, FetchApiParams } from "../../utilities/fetch";
+import { useApi } from "../../utilities/services";
 
-type State = {
-	navigation: boolean;
-	editDetails: boolean;
-	settings: boolean;
-	addQuestion: boolean;
-	warning: boolean;
-};
-type Action =
-	| { type: "toggle-navigation" }
-	| { type: "toggle-editDetails" }
-	| { type: "toggle-settings" }
-	| { type: "toggle-addQuestion" }
-	| { type: "toggle-warning" };
 type Details = {
 	title?: string;
 	description?: string;
 };
-const initState: State = {
-	navigation: false,
-	editDetails: false,
-	settings: false,
-	addQuestion: false,
-	warning: false
-};
+
 export default function Exam() {
 	const router = useRouter();
 	const { id } = router.query;
-	const reducer = (state: State, action: Action): State => {
-		switch (action.type) {
-			case "toggle-navigation":
-				return { ...state, navigation: !state.navigation };
-			case "toggle-editDetails":
-				state ? setDetails({ title: exam?.title, description: exam?.description }) : null;
-				return { ...state, editDetails: !state.editDetails };
-			case "toggle-settings":
-				return { ...state, settings: !state.settings };
-			case "toggle-addQuestion":
-				return { ...state, addQuestion: !state.addQuestion };
-			case "toggle-warning":
-				return { ...state, warning: !state.warning };
-			default:
-				throw new Error();
-		}
-	};
+	const Exam = useApi<IExam>("exams");
+	const Question = useApi<IQuestion>("questions");
 	const [exam, setExam] = useState<IExam>();
 	const [questions, setQuestions] = useState<IQuestion[]>();
+	const [isNavActive, setNavActive] = useState<boolean>(false);
+	const [isEditDetailsActive, setEditDetailsActive] = useState<boolean>(false);
+	const [isAddQuestionActive, setAddQuestionActive] = useState<boolean>(false);
+	const [isWarningActive, setWarningActive] = useState<boolean>(false);
 	const [details, setDetails] = useState<Details>();
-	const [state, dispatch] = useReducer(reducer, initState);
-	const uri: string = "/exams/" + id;
 
-	const events: FetchApiEvents = {
-		onSuccess: async data => {
-			setExam(data.data.data);
-			console.log(JSON.stringify(data, null, 2));
-		},
-		onError: async error => {
-			console.log(JSON.stringify(error, null, 2));
-		}
-	};
 	async function fetchQuestions() {
-		await fetchApi(
-			{ uri: "/questions/search?page=1", method: "POST" },
-			{ ...events, onSuccess: async (data: any) => setQuestions(data.data.data) }
-		);
+		const result = await Question.find({});
+		if (!result) return;
+		setQuestions(result.data.data);
 	}
 	async function deleteExamQuestion(question: IQuestion) {
-		exam
-			? await fetchApi(
-					{
-						uri: uri,
-						method: "PATCH",
-						body: {
-							...exam,
-							questions: exam.questions.filter(prevQuestion => prevQuestion !== question)
-						}
-					},
-					events
-			  )
-			: null;
+		if (!exam) return;
+		const updatedExam = {
+			...exam,
+			questions: exam.questions.filter(prevQuestion => prevQuestion !== question)
+		};
+		setExam(updatedExam);
+		await Exam.update(exam._id!, updatedExam);
 	}
 	async function addExamQuestion(question: IQuestion) {
-		exam
-			? await fetchApi(
-					{
-						uri: uri,
-						method: "PATCH",
-						body: { ...exam, questions: [...exam.questions, question] }
-					},
-					events
-			  )
-			: null;
+		if (!exam) return;
+		const updatedExam = { ...exam, questions: [...exam.questions, question] };
+		setExam(updatedExam);
+		await Exam.update(exam._id!, updatedExam);
 	}
-
-	function saveDetails() {
-		fetchApi({ uri: uri, method: "PATCH", body: { ...exam, ...details } }, events);
-		dispatch({ type: "toggle-editDetails" });
+	async function saveDetails() {
+		if (!exam || !details) return;
+		setExam({ ...exam, ...details });
+		await Exam.update(exam._id!, exam);
 	}
 	useEffect(() => {
+		async function fetchExam() {
+			if (typeof id !== "string") {
+				router.push("/exams");
+				return;
+			}
+			const result = await Exam.findById(id);
+			if (!result) return;
+			setExam(result.data.data);
+		}
 		if (!router.isReady) return;
-		authenticatePageRequest();
-		fetchApi({ uri: uri, method: "GET" }, events);
-		fetchQuestions();
+		fetchExam();
 	}, [id]);
-
 	return exam ? (
 		<>
 			<div className="page">
+				<Icon type="thin_long_left" onClick={() => router.push("/exams")} />
 				<Panel
 					exam={exam}
-					onEditDetailsClick={() => dispatch({ type: "toggle-editDetails" })}
-					onSettingsClick={() => dispatch({ type: "toggle-settings" })}
-					onAddQuestionClick={() => dispatch({ type: "toggle-addQuestion" })}
-					onDemoClick={() => dispatch({ type: "toggle-warning" })}
+					onSettingsClick={() => setWarningActive(true)}
+					onDemoClick={() => setWarningActive(true)}
 					onDeleteQuestionClick={deleteExamQuestion}
+					onEditDetailsClick={() => {
+						setDetails({ title: exam.title, description: exam.description });
+						setEditDetailsActive(true);
+					}}
+					onAddQuestionClick={() => {
+						fetchQuestions();
+						setAddQuestionActive(true);
+					}}
 				></Panel>
 			</div>
-			<Header heading={`Exam / ${exam._id}`} onMenuClick={() => dispatch({ type: "toggle-navigation" })} />
-			<Navigation
-				isActive={state.navigation}
-				onCollapseClick={() => dispatch({ type: "toggle-navigation" })}
-			/>
+			<Header heading={`Exam / ${exam._id}`} onMenuClick={() => setNavActive(true)} />
+			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
 			<Modal
 				title="Edit details"
-				isActive={state.editDetails}
+				isActive={isEditDetailsActive}
 				width="xs"
-				onCloseClick={() => dispatch({ type: "toggle-editDetails" })}
+				onCloseClick={() => setEditDetailsActive(false)}
 			>
 				<div className="section section--column">
 					<label>Title</label>
@@ -151,38 +108,31 @@ export default function Exam() {
 					<button
 						className="button button--primary button--align-end"
 						type="button"
-						onClick={() => saveDetails()}
+						onClick={() => {
+							saveDetails();
+							setEditDetailsActive(false);
+						}}
 					>
 						SAVE
 					</button>
 				</div>
 			</Modal>
-			<Modal
-				title="Settings"
-				isActive={state.settings}
-				onCloseClick={() => dispatch({ type: "toggle-settings" })}
-			>
+			<Modal title="Settings" isActive={isWarningActive} onCloseClick={() => setWarningActive(false)}>
 				<div className="warn">Coming Soon</div>
 			</Modal>
 			<Modal
 				title="Add Question"
-				isActive={state.addQuestion}
-				onCloseClick={() => dispatch({ type: "toggle-addQuestion" })}
+				isActive={isAddQuestionActive}
+				onCloseClick={() => setAddQuestionActive(false)}
 			>
 				{questions ? <SearchArticles questions={questions} onAddClick={addExamQuestion} /> : null}
-			</Modal>
-			<Modal isActive={state.warning} onCloseClick={() => dispatch({ type: "toggle-warning" })}>
-				<div className="warn">Coming Soon</div>
 			</Modal>
 		</>
 	) : (
 		<>
 			<div>loading...</div>
-			<Header heading="Exam / ???" onMenuClick={() => dispatch({ type: "toggle-navigation" })} />
-			<Navigation
-				isActive={state.navigation}
-				onCollapseClick={() => dispatch({ type: "toggle-navigation" })}
-			/>
+			<Header heading="Exam / ???" onMenuClick={() => setNavActive(true)} />
+			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
 		</>
 	);
 }

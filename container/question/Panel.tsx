@@ -27,9 +27,7 @@ const Panel = (props: Props) => {
 	function changeOptionValue(option: IOption, value: string) {
 		setQuestion({
 			...question,
-			options: question.options.map(prevOpt =>
-				prevOpt !== option ? prevOpt : { ...option, value: value }
-			)
+			options: question.options.map(prevOpt => (prevOpt !== option ? prevOpt : { ...option, value: value }))
 		});
 	}
 	function addOptions() {
@@ -124,11 +122,7 @@ const Panel = (props: Props) => {
 				</button>
 
 				{onDeleteClick ? (
-					<button
-						type="button"
-						className="question_button--delete"
-						onClick={onDeleteClick}
-					>
+					<button type="button" className="question_button--delete" onClick={onDeleteClick}>
 						Delete
 					</button>
 				) : null}

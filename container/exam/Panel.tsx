@@ -10,6 +10,7 @@ type Props = {
 	onSettingsClick?: React.MouseEventHandler<HTMLDivElement>;
 	onAddQuestionClick?: React.MouseEventHandler<HTMLButtonElement>;
 	onDemoClick?: React.MouseEventHandler<HTMLButtonElement>;
+	onSaveClick?: React.MouseEventHandler<HTMLButtonElement>;
 	onDeleteQuestionClick: (question: IQuestion) => void;
 };
 const Panel = (props: Props) => {
@@ -19,6 +20,7 @@ const Panel = (props: Props) => {
 		onSettingsClick,
 		onAddQuestionClick,
 		onDemoClick,
+		onSaveClick,
 		onDeleteQuestionClick
 	} = props;
 	return (
@@ -28,14 +30,17 @@ const Panel = (props: Props) => {
 					<div className="exam__title">{exam.title}</div>
 					<Icon type="edit" className="exam__edit" onClick={onEditDetailsClick}></Icon>
 					<div className="spacer"></div>
-					<Icon
-						type="settings_filled"
-						className="exam__settings"
-						onClick={onSettingsClick}
-					></Icon>
-					<button type="button" className="button button--primary" onClick={onDemoClick}>
-						Demo
-					</button>
+					<Icon type="settings_filled" className="exam__settings" onClick={onSettingsClick}></Icon>
+					{onDemoClick ? (
+						<button type="button" className="button button--primary" onClick={onDemoClick}>
+							Demo
+						</button>
+					) : null}
+					{onSaveClick ? (
+						<button type="button" className="button button--primary" onClick={onSaveClick}>
+							Save
+						</button>
+					) : null}
 				</section>
 				<section className="section section--y-margin">
 					<div className="exam__description">{exam.description}</div>
@@ -43,14 +48,10 @@ const Panel = (props: Props) => {
 				<div className="section section--y-margin">
 					<span className="exam__author">{exam.author}</span>
 					<span className="exam__dot-span">•</span>
-					<span className="exam__update-date">{exam.updatedAt.slice(0, 10)}</span>
+					<span className="exam__update-date">{exam.updatedAt!.slice(0, 10)}</span>
 				</div>
 				<div className="section section--y-margin">
-					<button
-						type="button"
-						className="button button--tertiary"
-						onClick={onAddQuestionClick}
-					>
+					<button type="button" className="button button--tertiary" onClick={onAddQuestionClick}>
 						<span>Question</span>
 						<Icon type="plus" className="button__icon"></Icon>
 					</button>

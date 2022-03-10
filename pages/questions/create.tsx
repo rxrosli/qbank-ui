@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import IQuestion from "../../models/IQuestion";
 import { useApi, authenticated } from "../../utilities/services";
 import router from "next/dist/client/router";
+import Icon from "../../components/Icon";
 
 const initQuestion: IQuestion = {
 	type: "Multiple Choice",
@@ -32,13 +33,15 @@ export default function CreateQuestion() {
 
 	return (
 		<div>
-			<div className="page page--row">
-				{/* TODO add empty fields validation */}
-				<Panel question={question} setQuestion={setQuestion} onSaveClick={() => pushQuestion(question)} />
-			</div>
+			<div className="page">
+				<Icon type="thin_long_left" onClick={() => router.push("/questions")} />
+				<div className="section">
+					<Panel question={question} setQuestion={setQuestion} onSaveClick={() => pushQuestion(question)} />
+				</div>
 
-			<Header heading={`Question / Create`} onMenuClick={() => setNavActive(true)} />
-			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
+				<Header heading={`Question / Create`} onMenuClick={() => setNavActive(true)} />
+				<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
+			</div>
 		</div>
 	);
 }
