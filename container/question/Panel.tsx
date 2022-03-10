@@ -83,7 +83,7 @@ const Panel = (props: Props) => {
 				<div className="input-group">
 					<label>Type</label>
 					<Dropdown
-						options={["Multiple Choice", "True/False"]}
+						options={["Multiple Choice"]}
 						onChange={e => setQuestion({ ...question, type: e.currentTarget.value })}
 					/>
 				</div>
