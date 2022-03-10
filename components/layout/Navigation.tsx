@@ -27,7 +27,7 @@ const Navigation = (props: Props) => {
 						<Icon type="plus" />
 					</a>
 				</Link>
-				<Link href="/questions" passHref>
+				<Link href="/questions?page=1" passHref>
 					<a>
 						<Icon type="search" />
 					</a>

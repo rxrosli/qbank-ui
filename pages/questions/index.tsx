@@ -1,11 +1,10 @@
 import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
 import Articles from "../../container/question/Articles";
-import Dropdown from "../../components/Dropdown";
 import IQuestion from "../../models/IQuestion";
 import React, { useEffect, useState } from "react";
-import { authenticated, fetchApi, FetchApiEvents, FetchApiParams, refreshToken } from "../../utilities/fetch";
-import Router from "next/router";
+import { useApi, authenticated } from "../../utilities/services";
+import Router, { useRouter } from "next/router";
 
 type SearchQuery = {
 	target: string;
@@ -13,52 +12,29 @@ type SearchQuery = {
 };
 
 export default function Questions() {
+	const router = useRouter();
+	const { page } = router.query;
+	const Question = useApi<IQuestion>("questions");
 	const [isActive, setActive] = useState<boolean>(false);
-	const searchOptions = ["tag", "question", "id"];
-	const [questions, setQuestions] = useState<IQuestion[]>([]);
-	const [searchQuery, setSearchQuery] = useState<SearchQuery>({
-		target: "tag",
-		query: ""
-	});
-
+	const [questions, setQuestions] = useState<IQuestion[]>();
 	useEffect(() => {
+		async function handleOnLoad() {
+			if (typeof page !== "string") return;
+			const result = await Question.find({}, { size: 10, page: parseInt(page) });
+			setQuestions(result.data.data);
+		}
 		if (!authenticated()) {
 			Router.push("/login");
 			return;
 		}
-		const apiParams: FetchApiParams = {
-			uri: "/questions/query",
-			method: "POST",
-			body: {}
-		};
-		const events: FetchApiEvents = {
-			onSuccess: async data => {
-				setQuestions(data.data.data);
-			},
-			onError: async error => {
-				// console.log(error.response.data.error.message.name);
-				console.log(error);
-				Router.push("/login");
-			},
-			onTokenExpired: () => refreshToken()
-		};
-		fetchApi(apiParams, events);
-	}, []);
-	return (
+		if (!page) {
+			return;
+		}
+		handleOnLoad();
+	}, [page]);
+	return questions ? (
 		<div>
 			<div className="page">
-				{/* <div className="question-search"> */}
-				{/* TODO: add dropdown icon later */}
-				{/* <Icon type="caret_down" /> */}
-				{/* <Dropdown
-						options={searchOptions}
-						onChange={e =>
-							setSearchQuery({ ...searchQuery, target: e.currentTarget.value })
-						}
-					/>
-					<input />
-					<button /> */}
-				{/* </div> */}
 				<section className="section section--column">
 					<Articles questions={questions} />
 				</section>
@@ -66,5 +42,7 @@ export default function Questions() {
 			<Header heading="Questions" onMenuClick={() => setActive(true)} />
 			<Navigation isActive={isActive} onCollapseClick={() => setActive(false)} />
 		</div>
+	) : (
+		<div>loading...</div>
 	);
 }

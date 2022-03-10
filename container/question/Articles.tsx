@@ -6,9 +6,10 @@ type Props = {
 	questions: IQuestion[];
 };
 const Articles = (props: Props) => {
+	const { questions } = props;
 	return (
 		<>
-			{props.questions.map(question => (
+			{questions.map(question => (
 				<Article key={question._id} question={question} />
 			))}
 		</>

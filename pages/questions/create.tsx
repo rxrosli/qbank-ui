@@ -3,40 +3,24 @@ import Navigation from "../../components/layout/Navigation";
 import Panel from "../../container/question/Panel";
 import React, { useEffect, useState } from "react";
 import IQuestion from "../../models/IQuestion";
-import { authenticated, fetchApi, FetchApiEvents, FetchApiParams, refreshToken } from "../../utilities/fetch";
+import { useApi, authenticated } from "../../utilities/services";
 import router from "next/dist/client/router";
 
-function getQuestionHeading(question: IQuestion): string {
-	return `Question / Create`;
-}
+const initQuestion: IQuestion = {
+	type: "Multiple Choice",
+	stem: "",
+	options: [],
+	tags: []
+};
 
 export default function CreateQuestion() {
+	const Question = useApi<IQuestion>("questions");
 	const [isNavActive, setNavActive] = useState(false);
-	const [question, setQuestion] = useState<IQuestion>({
-		type: "Multiple Choice",
-		stem: "",
-		options: [],
-		tags: []
-	});
+	const [question, setQuestion] = useState<IQuestion>(initQuestion);
 
 	async function pushQuestion(question: IQuestion) {
-		const apiParams: FetchApiParams = {
-			uri: "/questions",
-			method: "POST",
-			body: question
-		};
-		const events: FetchApiEvents = {
-			onSuccess: async data => {
-				console.log(data.data.data._id);
-				router.push("/question?id=" + data.data.data._id);
-				return;
-			},
-			onError: async error => {
-				console.log(error.response.data.error.message);
-			},
-			onTokenExpired: () => refreshToken()
-		};
-		await fetchApi(apiParams, events);
+		const result = await Question.create(question);
+		router.push("/question?id=" + result.data.data._id);
 	}
 
 	useEffect(() => {
@@ -53,7 +37,7 @@ export default function CreateQuestion() {
 				<Panel question={question} setQuestion={setQuestion} onSaveClick={() => pushQuestion(question)} />
 			</div>
 
-			<Header heading={getQuestionHeading(question)} onMenuClick={() => setNavActive(true)} />
+			<Header heading={`Question / Create`} onMenuClick={() => setNavActive(true)} />
 			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
 		</div>
 	);
