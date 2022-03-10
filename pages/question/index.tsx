@@ -19,17 +19,17 @@ export default function Question() {
 
 	async function handleOnDeleteClick() {
 		if (typeof id !== "string") {
-			Router.push("/questions");
+			Router.push("/questions/page?=1");
 			return;
 		}
 		await Question.delete(id!);
-		Router.push("/questions");
+		Router.push("/questions/page?=1");
 	}
 
 	useEffect(() => {
 		async function handleOnLoad() {
 			if (typeof id !== "string") {
-				Router.push("/questions");
+				Router.push("/questions/page?=1");
 				return;
 			}
 			const result = await Question.findById(id);

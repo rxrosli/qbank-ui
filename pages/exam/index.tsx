@@ -70,7 +70,7 @@ export default function Exam() {
 	};
 	async function fetchQuestions() {
 		await fetchApi(
-			{ uri: "/questions/query", method: "POST" },
+			{ uri: "/questions/search?page=1", method: "POST" },
 			{ ...events, onSuccess: async (data: any) => setQuestions(data.data.data) }
 		);
 	}
@@ -126,7 +126,10 @@ export default function Exam() {
 				></Panel>
 			</div>
 			<Header heading={`Exam / ${exam._id}`} onMenuClick={() => dispatch({ type: "toggle-navigation" })} />
-			<Navigation isActive={state.navigation} onCollapseClick={() => dispatch({ type: "toggle-navigation" })} />
+			<Navigation
+				isActive={state.navigation}
+				onCollapseClick={() => dispatch({ type: "toggle-navigation" })}
+			/>
 			<Modal
 				title="Edit details"
 				isActive={state.editDetails}
@@ -145,12 +148,20 @@ export default function Exam() {
 						placeholder="Add an optional description"
 						onChange={e => setDetails({ ...details, description: e.currentTarget.value })}
 					></textarea>
-					<button className="button button--primary button--align-end" type="button" onClick={() => saveDetails()}>
+					<button
+						className="button button--primary button--align-end"
+						type="button"
+						onClick={() => saveDetails()}
+					>
 						SAVE
 					</button>
 				</div>
 			</Modal>
-			<Modal title="Settings" isActive={state.settings} onCloseClick={() => dispatch({ type: "toggle-settings" })}>
+			<Modal
+				title="Settings"
+				isActive={state.settings}
+				onCloseClick={() => dispatch({ type: "toggle-settings" })}
+			>
 				<div className="warn">Coming Soon</div>
 			</Modal>
 			<Modal
@@ -168,7 +179,10 @@ export default function Exam() {
 		<>
 			<div>loading...</div>
 			<Header heading="Exam / ???" onMenuClick={() => dispatch({ type: "toggle-navigation" })} />
-			<Navigation isActive={state.navigation} onCollapseClick={() => dispatch({ type: "toggle-navigation" })} />
+			<Navigation
+				isActive={state.navigation}
+				onCollapseClick={() => dispatch({ type: "toggle-navigation" })}
+			/>
 		</>
 	);
 }
