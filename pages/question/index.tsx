@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Icon from "../../components/Icon";
 import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
+import Loading from "../../components/Loading";
 import Panel from "../../container/question/Panel";
 import IQuestion from "../../models/IQuestion";
 import { useApi, authenticated } from "../../utilities/services";
@@ -63,6 +64,10 @@ export default function Question() {
 			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
 		</div>
 	) : (
-		<div>loading...</div>
+		<>
+			<Loading />
+			<Header heading={`Question / ???`} onMenuClick={() => setNavActive(true)} />
+			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
+		</>
 	);
 }

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import Icon from "../../components/Icon";
 import Header from "../../components/layout/Header";
 import Navigation from "../../components/layout/Navigation";
+import Loading from "../../components/Loading";
 import Modal from "../../components/Modal";
 import Panel from "../../container/exam/Panel";
 import SearchArticles from "../../container/exam/SearchArticles";
@@ -130,7 +131,7 @@ export default function Exam() {
 		</>
 	) : (
 		<>
-			<div>loading...</div>
+			<Loading />
 			<Header heading="Exam / ???" onMenuClick={() => setNavActive(true)} />
 			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
 		</>

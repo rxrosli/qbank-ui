@@ -7,6 +7,7 @@ import Navigation from "../../components/layout/Navigation";
 import Modal from "../../components/Modal";
 import AddButton from "../../components/AddButton";
 import PaginationSection from "../../components/Pagination";
+import Loading from "../../components/Loading";
 import { authenticated, useApi } from "../../utilities/services";
 import { Pagination, parsePagination } from "../../utilities/pagination";
 
@@ -105,7 +106,7 @@ export default function Exams() {
 		</>
 	) : (
 		<>
-			<div>loading...</div>
+			<Loading />
 			<Header heading="Exams" onMenuClick={() => setNavActive(true)} />
 			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
 		</>

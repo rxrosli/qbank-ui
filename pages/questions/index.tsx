@@ -8,6 +8,7 @@ import Articles from "../../container/question/Articles";
 import IQuestion from "../../models/IQuestion";
 import { useApi, authenticated } from "../../utilities/services";
 import { Pagination, parsePagination } from "../../utilities/pagination";
+import Loading from "../../components/Loading";
 
 type SearchQuery = {
 	target: string;
@@ -53,6 +54,10 @@ export default function Questions() {
 			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
 		</div>
 	) : (
-		<div>loading...</div>
+		<>
+			<Loading />
+			<Header heading="Questions" onMenuClick={() => setNavActive(true)} />
+			<Navigation isActive={isNavActive} onCollapseClick={() => setNavActive(false)} />
+		</>
 	);
 }
