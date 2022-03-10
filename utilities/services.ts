@@ -24,30 +24,30 @@ type Service<T> = {
 
 const baseURL = process.env.NEXT_PUBLIC_API!;
 
-export function useApi<T>(collection: string): Service<T> {
+export function useApi<T>(node: string): Service<T> {
 	return {
 		find: async (query, pagination) => {
-			const baseUri = `${baseURL}/${collection}/search`;
+			const baseUri = `${baseURL}/${node}/search`;
 			if (!pagination) return await fetch({ method: "POST", uri: baseUri, body: query });
 			const queryStringParams = `?size=${pagination.size}&page=${pagination.page}`;
 			return await fetch({ method: "POST", uri: `${baseUri}${queryStringParams}`, body: query });
 		},
 		findById: async id => {
-			return await fetch({ method: "GET", uri: `${baseURL}/${collection}/${id}` });
+			return await fetch({ method: "GET", uri: `${baseURL}/${node}/${id}` });
 		},
 		create: async obj => {
-			return await fetch({ method: "POST", uri: `${baseURL}/${collection}`, body: obj });
+			return await fetch({ method: "POST", uri: `${baseURL}/${node}`, body: obj });
 		},
 		update: async (id, obj) => {
-			await fetch({ method: "PATCH", uri: `${baseURL}/${collection}/${id}`, body: obj });
+			await fetch({ method: "PATCH", uri: `${baseURL}/${node}/${id}`, body: obj });
 		},
 		delete: async id => {
-			await fetch({ method: "DELETE", uri: `${baseURL}/${collection}/${id}` });
+			await fetch({ method: "DELETE", uri: `${baseURL}/${node}/${id}` });
 		}
 	};
 }
 
-function geteAxiosConfig(
+export function geteAxiosConfig(
 	uri: string,
 	method: Method,
 	body?: { [index: string]: any },
@@ -81,7 +81,7 @@ async function refreshToken() {
 		});
 }
 
-async function fetch(params: FetchParams) {
+export async function fetch(params: FetchParams) {
 	const { uri, method, body = {} } = params;
 	const onError = (error: any) => {
 		console.error(error);
