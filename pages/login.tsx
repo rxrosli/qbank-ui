@@ -1,7 +1,8 @@
+import axios from "axios";
 import { useRouter } from "next/dist/client/router";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { UserInput } from "../models/User";
-import { fetchApi, FetchApiEvents, FetchApiParams } from "../utilities/fetch";
+import { geteAxiosConfig } from "../utilities/services";
 
 export default function Login() {
 	const router = useRouter();
@@ -18,21 +19,17 @@ export default function Login() {
 
 	async function handleSubmit(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
-		const apiParams: FetchApiParams = { uri: "/auth", method: "POST", body: userInput };
-		const events: FetchApiEvents = {
-			onSuccess: async data => {
+		axios(geteAxiosConfig("auth", "POST", userInput))
+			.then(async res => {
 				window.localStorage.setItem("username", userInput.username);
-				window.localStorage.setItem("token", data.data.data.accessToken);
-				window.localStorage.setItem("refreshToken", data.data.data.refreshToken);
-				await router.push("/questions");
-				return;
-			},
-			onError: async error => {
+				window.localStorage.setItem("token", res.data.data.accessToken);
+				window.localStorage.setItem("refreshToken", res.data.data.refreshToken);
+				await router.push("/questions?page=1");
+			})
+			.catch(err => {
 				setAuthFailed(true);
-				console.log(error.response.data.error.message);
-			}
-		};
-		fetchApi(apiParams, events);
+				console.log(err);
+			});
 	}
 
 	return (
