@@ -9,11 +9,10 @@
 	justify-content: center;
 }
 .auth-container {
-	width: 30%;
+	min-width: 18rem;
+	max-width: 18rem;
 	margin: 0 auto;
 	background: $polar0;
-	// outline: dashed 1px $snow2;
-	// background: $polar3;
 }
 .auth-form-header {
 	margin: 0;
@@ -52,7 +51,9 @@
 	box-sizing: border-box;
 	&:hover {
 		background: $polar3;
-		outline: solid 2px $polar3;
+	}
+	&:active {
+		outline: inset 3px $polar2;
 	}
 }
 
