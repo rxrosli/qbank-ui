@@ -1,5 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosRequestHeaders, AxiosResponse, Method } from "axios";
-import IQuestion from "../models/IQuestion";
+import axios, { AxiosRequestConfig, AxiosRequestHeaders, Method } from "axios";
+import { PaginationSettings } from "./pagination";
 
 export type HttpMethods = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 export type FetchParams = {
@@ -8,46 +8,46 @@ export type FetchParams = {
 	body?: { [index: string]: any };
 };
 
-type FindByQuery<T> = (query: Partial<T>) => Promise<any>;
-type FindById<T> = (id: string) => Promise<any>;
-type Create<T> = (obj: T) => Promise<void>;
-type Delete<T> = (id: string) => Promise<void>;
+type FindByQuery<T> = (query: Partial<T>, pagination?: PaginationSettings) => Promise<any>;
+type FindById = (id: string) => Promise<any>;
+type Create<T> = (obj: T) => Promise<any>;
 type Update<T> = (id: string, obj: T) => Promise<void>;
+type Delete = (id: string) => Promise<void>;
 
 type Service<T> = {
 	find: FindByQuery<T>;
-	findById: FindById<T>;
+	findById: FindById;
 	create: Create<T>;
-	delete: Delete<T>;
 	update: Update<T>;
+	delete: Delete;
 };
 
 const baseURL = process.env.NEXT_PUBLIC_API!;
 
-export const questionApi = useApi<IQuestion>("questions");
-export const examApi = useApi<IQuestion>("exams");
-
-export function useApi<T>(name: string): Service<T> {
+export function useApi<T>(collection: string): Service<T> {
 	return {
-		find: async (query: Partial<T>) => {
-			return await fetch({ method: "POST", uri: `${baseURL}/${name}/query`, body: query });
+		find: async (query, pagination) => {
+			const baseUri = `${baseURL}/${collection}/search`;
+			if (!pagination) return await fetch({ method: "POST", uri: baseUri, body: query });
+			const queryStringParams = `?size=${pagination.size}&page=${pagination.page}`;
+			return await fetch({ method: "POST", uri: `${baseUri}${queryStringParams}`, body: query });
 		},
-		findById: async (id: string) => {
-			return await fetch({ method: "GET", uri: `${baseURL}/${name}/${id}` });
+		findById: async id => {
+			return await fetch({ method: "GET", uri: `${baseURL}/${collection}/${id}` });
 		},
-		create: async (obj: T) => {
-			await fetch({ method: "POST", uri: `${baseURL}/${name}`, body: obj });
+		create: async obj => {
+			return await fetch({ method: "POST", uri: `${baseURL}/${collection}`, body: obj });
 		},
-		delete: async (id: string) => {
-			await fetch({ method: "DELETE", uri: `${baseURL}/${name}/${id}` });
+		update: async (id, obj) => {
+			await fetch({ method: "PATCH", uri: `${baseURL}/${collection}/${id}`, body: obj });
 		},
-		update: async (id: string) => {
-			await fetch({ method: "PUT", uri: `${baseURL}/${name}/${id}` });
+		delete: async id => {
+			await fetch({ method: "DELETE", uri: `${baseURL}/${collection}/${id}` });
 		}
 	};
 }
 
-function createAxiosConfig(
+function geteAxiosConfig(
 	uri: string,
 	method: Method,
 	body?: { [index: string]: any },
@@ -71,8 +71,8 @@ async function refreshToken() {
 		Authorization: "bearer " + window.localStorage.getItem("refreshToken"),
 		"Content-Type": "application/json"
 	};
-	console.info("Refreshing token.");
-	await axios(createAxiosConfig("auth", "GET", {}, headers))
+	console.info("Refreshing token...");
+	axios(geteAxiosConfig("auth", "GET", {}, headers))
 		.then(res => {
 			window.localStorage.setItem("token", res.data.data.accessToken);
 		})
@@ -84,21 +84,30 @@ async function refreshToken() {
 async function fetch(params: FetchParams) {
 	const { uri, method, body = {} } = params;
 	const onError = (error: any) => {
-		console.log(JSON.stringify(error, null, 2));
+		console.error(error);
 	};
 	try {
-		return await axios(createAxiosConfig(uri, method));
+		return await axios(geteAxiosConfig(uri, method, body));
 	} catch (error) {
-		console.log(error);
+		if (error.response === undefined) throw error;
 		const errors = error.response.data.errors;
-		errors.forEach(async (error: any) => {
-			if (error === undefined || error.name !== "TokenExpiredError") throw error;
-		});
 		try {
+			if (errors === undefined) throw error;
+			errors.forEach(async (error: any) => {
+				if (error === undefined || error.name !== "TokenExpiredError") throw error;
+			});
 			await refreshToken();
-			return await axios(createAxiosConfig(uri, method, body));
+			return await axios(geteAxiosConfig(uri, method, body));
 		} catch (error) {
 			onError(error);
 		}
 	}
+}
+
+export function authenticated(): boolean {
+	const username = window.localStorage.getItem("username");
+	const token = window.localStorage.getItem("token");
+	const refresh = window.localStorage.getItem("refreshToken");
+	if (!username && !token && !refresh) return false;
+	return true;
 }
