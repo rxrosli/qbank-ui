@@ -12,29 +12,16 @@ const Navigation = (props: Props) => {
 	const router = useRouter();
 	const { isActive, onCollapseClick } = props;
 
-	const handleOnLogoutClick = async () => {
-		window.localStorage.removeItem("username");
-		window.localStorage.removeItem("token");
-		window.localStorage.removeItem("refreshToken");
-		await router.push("/login");
-	};
 	return (
 		<nav className={isActive ? "nav is-active" : "nav"}>
 			<div className="top-flex">
-				<Icon type="chevron_duo_left" onClick={onCollapseClick} />
-				<Link href="/questions/create" passHref>
-					<a>
-						<Icon type="plus" />
-					</a>
+				<Icon className="icon" type="chevron_duo_left" onClick={onCollapseClick} />
+				<Link href="/questions" passHref>
+					<div className="nav__link">Q</div>
 				</Link>
-				<Link href="/questions?page=1" passHref>
-					<a>
-						<Icon type="search" />
-					</a>
+				<Link href="/exams" passHref>
+					<div className="nav__link">E</div>
 				</Link>
-			</div>
-			<div className="bottom-flex">
-				<Icon type="log_out" onClick={handleOnLogoutClick} />
 			</div>
 		</nav>
 	);
