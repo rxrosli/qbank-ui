@@ -1,0 +1,9 @@
+.pagination {
+	color: $polar2;
+	margin: 0.5rem;
+	font-size: 1.2rem;
+	&--current {
+		color: $polar2;
+		text-decoration: underline;
+	}
+}

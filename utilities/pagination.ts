@@ -4,7 +4,16 @@ export type PaginationSettings = {
 };
 
 export type Pagination = {
-	results: number;
+	url: string;
+	currentPage: number;
+	totalRecords: number;
 	totalPages: number;
-	setting: PaginationSettings;
+	size: number;
 };
+
+export function parsePagination(result: any, currentPage: number, url: string): Pagination {
+	const totalRecords = result.data.meta.totalRecords as number;
+	const totalPages = result.data.meta.totalPages as number;
+	const size = result.data.meta.size as number;
+	return { totalRecords, totalPages, size, currentPage, url };
+}

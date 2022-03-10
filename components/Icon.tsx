@@ -3,7 +3,7 @@ import React from "react";
 type Props = {
 	className?: string;
 	onClick?: React.MouseEventHandler<HTMLDivElement>;
-	type: "chevron_duo_left" | "hamburger" | "plus" | "search" | "settings_filled" | "trash" | "close_small" | "log_out" | "caret_down" |"caret_right"| "edit" | "condition_true" | "condition_false";
+	type: "chevron_duo_left" | "hamburger" | "plus" | "search" | "settings_filled" | "trash" | "close_small" | "log_out" | "caret_down" |"caret_right"| "edit" | "condition_true" | "condition_false" | "thin_long_left";
 };
 
 const Icon = (props: Props) => {
@@ -23,6 +23,7 @@ const Icon = (props: Props) => {
 		case "edit": svg = <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4.41999 20.579C4.13948 20.5785 3.87206 20.4603 3.68299 20.253C3.49044 20.0475 3.39476 19.7695 3.41999 19.489L3.66499 16.795L14.983 5.48103L18.52 9.01703L7.20499 20.33L4.51099 20.575C4.47999 20.578 4.44899 20.579 4.41999 20.579ZM19.226 8.31003L15.69 4.77403L17.811 2.65303C17.9986 2.46525 18.2531 2.35974 18.5185 2.35974C18.7839 2.35974 19.0384 2.46525 19.226 2.65303L21.347 4.77403C21.5348 4.9616 21.6403 5.21612 21.6403 5.48153C21.6403 5.74694 21.5348 6.00146 21.347 6.18903L19.227 8.30903L19.226 8.31003Z" fill="currentColor"/></svg>; break;
 		case "condition_true": svg = <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22C6.47967 21.9939 2.00606 17.5203 2 12V11.8C2.10993 6.30453 6.63459 1.92796 12.1307 2.00088C17.6268 2.07381 22.0337 6.56889 21.9978 12.0653C21.9619 17.5618 17.4966 21.9989 12 22ZM7.41 11.59L6 13L10 17L18 9L16.59 7.58L10 14.17L7.41 11.59Z" fill="currentColor"/></svg>; break;
 		case "condition_false": svg = <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 22C9.34711 22.0024 6.80218 20.9496 4.9263 19.0737C3.05042 17.1978 1.99762 14.6529 2 12V11.8C2.08179 7.79223 4.5478 4.22016 8.26637 2.72307C11.9849 1.22597 16.2381 2.0929 19.074 4.92601C21.9365 7.78609 22.7932 12.0893 21.2443 15.8276C19.6955 19.5659 16.0465 22.0024 12 22ZM12 13.41L14.59 16L16 14.59L13.41 12L16 9.41001L14.59 8.00001L12 10.59L9.41001 8.00001L8.00001 9.41001L10.59 12L8.00001 14.59L9.41001 16L12 13.411V13.41Z" fill="currentColor"/></svg>; break;
+		case "thin_long_left": svg = <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5.5 8.5L2 12L5.5 15.5L6.207 14.793L3.914 12.5H22V11.5H3.914L6.207 9.207L5.5 8.5Z" fill="currentColor"/></svg>; break;
 	}
 	return <div className={className ? className : "icon"} onClick={onClick}>{svg}</div>;
 };
