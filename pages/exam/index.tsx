@@ -16,6 +16,11 @@ type Details = {
 	description?: string;
 };
 
+type Pagination = {
+	self: number;
+	next: boolean;
+	prev: boolean;
+};
 export default function Exam() {
 	const router = useRouter();
 	const { id } = router.query;
@@ -26,13 +31,21 @@ export default function Exam() {
 	const [isNavActive, setNavActive] = useState<boolean>(false);
 	const [isEditDetailsActive, setEditDetailsActive] = useState<boolean>(false);
 	const [isAddQuestionActive, setAddQuestionActive] = useState<boolean>(false);
+	const [pagination, setPagination] = useState<Pagination>({ self: 1, prev: false, next: false });
 	const [isWarningActive, setWarningActive] = useState<boolean>(false);
 	const [details, setDetails] = useState<Details>();
 
-	async function fetchQuestions() {
-		const result = await Question.find({});
+	async function fetchQuestions(page: number) {
+		const result = await Question.find({}, { size: 5, page });
 		if (!result) return;
 		setQuestions(result.data.data);
+		console.log(result.data.meta.prev);
+		console.log(result.data.meta.next);
+		setPagination({
+			self: result.data.meta.self,
+			prev: result.data.meta.prev,
+			next: result.data.meta.next
+		});
 	}
 	async function deleteExamQuestion(question: IQuestion) {
 		if (!exam) return;
@@ -81,7 +94,7 @@ export default function Exam() {
 						setEditDetailsActive(true);
 					}}
 					onAddQuestionClick={() => {
-						fetchQuestions();
+						fetchQuestions(1);
 						setAddQuestionActive(true);
 					}}
 				></Panel>
@@ -125,6 +138,17 @@ export default function Exam() {
 				title="Add Question"
 				isActive={isAddQuestionActive}
 				onCloseClick={() => setAddQuestionActive(false)}
+				onPaginateLeftClick={() => {
+					if (pagination.prev) {
+						fetchQuestions(pagination.self - 1);
+					}
+				}}
+				onPaginateRightClick={() => {
+					console.log("right");
+					if (pagination.next) {
+						fetchQuestions(pagination.self + 1);
+					}
+				}}
 			>
 				{questions ? <SearchArticles questions={questions} onAddClick={addExamQuestion} /> : null}
 			</Modal>

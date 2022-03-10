@@ -3,7 +3,7 @@ import React from "react";
 type Props = {
 	className?: string;
 	onClick?: React.MouseEventHandler<HTMLDivElement>;
-	type: "chevron_duo_left" | "hamburger" | "plus" | "search" | "settings_filled" | "trash" | "close_small" | "log_out" | "caret_down" |"caret_right"| "edit" | "condition_true" | "condition_false" | "thin_long_left";
+	type: "chevron_duo_left"| "chevron_duo_right" | "hamburger" | "plus" | "search" | "settings_filled" | "trash" | "close_small" | "log_out" | "caret_down" |"caret_right"| "edit" | "condition_true" | "condition_false" | "thin_long_left";
 };
 
 const Icon = (props: Props) => {
@@ -11,6 +11,7 @@ const Icon = (props: Props) => {
 	let svg: JSX.Element;
 	switch (type) {
     case "chevron_duo_left": svg = <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M11.585 18.01L5.57501 12L11.585 5.99001L13 7.40401L8.40001 12.004L13 16.604L11.586 18.01H11.585ZM17.01 18.01L10.999 12L17.01 5.99001L18.424 7.40401L13.824 12.004L18.424 16.604L17.011 18.01H17.01Z" fill="currentColor"/></svg>; break;
+		case "chevron_duo_right": svg = <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12.414 18.01L10.999 16.597L15.599 11.997L10.999 7.39701L12.414 5.99001L18.424 12L12.415 18.01H12.414ZM6.98901 18.01L5.57501 16.597L10.175 11.997L5.57501 7.40401L6.98901 5.99001L13 12L6.99001 18.01H6.98901Z" fill="currentColor"/></svg>; break;
 		case "hamburger": svg = <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M21 18H3V16H21V18ZM21 13H3V11H21V13ZM21 8H3V6H21V8Z" fill="currentColor"/></svg>; break;
 		case "plus": svg = <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M13 13V19H11V13H5V11H11V5H13V11H19V13H13Z" fill="currentColor"/></svg>; break;
 		case "search": svg = <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18.677 19.607L12.962 13.891C10.4196 15.6985 6.91642 15.2564 4.90285 12.8739C2.88929 10.4915 3.03714 6.96361 5.24298 4.75802C7.44824 2.55147 10.9765 2.40298 13.3594 4.41644C15.7422 6.42989 16.1846 9.93347 14.377 12.476L20.092 18.192L18.678 19.606L18.677 19.607ZM9.48498 5.00001C7.58868 4.99958 5.95267 6.3307 5.56745 8.18745C5.18224 10.0442 6.15369 11.9163 7.89366 12.6703C9.63362 13.4242 11.6639 12.8529 12.7552 11.3021C13.8466 9.75129 13.699 7.64734 12.402 6.26402L13.007 6.86402L12.325 6.18402L12.313 6.17202C11.5648 5.4192 10.5464 4.99715 9.48498 5.00001Z" fill="currentColor"/></svg>; break;
